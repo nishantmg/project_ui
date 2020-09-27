@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/pages/welcome_screen.dart';
 
 void main() {
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: WelcomeScreen.id,
       routes: {
-        WelcomeScreen.id : (context)=> WelcomeScreen()
+        WelcomeScreen.id : (context)=> WelcomeScreen(),
+        SignUpScreen.id: (context)=> SignUpScreen()
       },
     );
   }

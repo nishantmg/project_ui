@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/pages/signup_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static String id = 'welcome_screen';
@@ -38,7 +39,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     "SIGN UP",
                     style: kButtonTextStyle,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, SignUpScreen.id);
+                  },
                 ),
                 SizedBox(
                   width: 15.0,
