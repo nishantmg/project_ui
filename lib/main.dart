@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/pages/welcome_screen.dart';
 
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
       initialRoute: WelcomeScreen.id,
       routes: {
         WelcomeScreen.id : (context)=> WelcomeScreen(),
-        SignUpScreen.id: (context)=> SignUpScreen()
+        SignUpScreen.id: (context)=> SignUpScreen(),
+        LoginScreen.id:(context)=> LoginScreen()
       },
     );
   }

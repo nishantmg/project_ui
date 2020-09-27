@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 const kButtonTextStyle = TextStyle(
+  fontSize: 18.0,
+  color: Colors.white,
   fontFamily: "Varela Round",
   fontWeight: FontWeight.bold
 );

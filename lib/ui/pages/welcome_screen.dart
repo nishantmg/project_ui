@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -35,9 +36,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               children: [
                 FlatButton(
                   color: Color(0xFF79d440),
-                  child: Text(
-                    "SIGN UP",
-                    style: kButtonTextStyle,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0,horizontal: 17.0),
+                    child: Text(
+                      "SIGN UP",
+                      style: kButtonTextStyle,
+                    ),
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, SignUpScreen.id);
@@ -48,11 +52,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 FlatButton(
                   color: Colors.white,
-                  child: Text(
-                    "SIGN IN",
-                    style: kButtonTextStyle,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 22.0),
+                    child: Text(
+                      "LOGIN",
+                      style: kButtonTextStyle.copyWith(
+                        color: Colors.black
+                      ),
+                    ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, LoginScreen.id);
+                  },
                 )
               ],
             ),
