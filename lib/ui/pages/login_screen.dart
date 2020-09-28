@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           size: 20.0,
                         ),
                         Text("Back",
-                          style: kSloganTextStyle.copyWith(
+                          style: kTextStyle.copyWith(
                               color: Colors.white
                           ),
                         )
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text("Forgot Password?",
-                                style: kSloganTextStyle.copyWith(
+                                style: kTextStyle.copyWith(
                                     fontSize: 17,
                                     color: Color(0xFF69c730)
                                 ),
@@ -98,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
-                          // Navigator.pushNamed(context, SignUpScreen.id);
+                          Navigator.pushNamed(context, MainScreen.id);
                         },
                       ),
                       SizedBox(height: 60.0,),
@@ -110,13 +111,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("New here?",
-                              style: kSloganTextStyle.copyWith(
+                              style: kTextStyle.copyWith(
                                   color: Colors.white,
                                   fontSize: 18.0
                               ),
                             ),
                             Text(" Sign Up",
-                              style: kSloganTextStyle.copyWith(
+                              style: kTextStyle.copyWith(
                                   color: Color(0xFF69c730),
                                   fontSize: 18.0
                               ),

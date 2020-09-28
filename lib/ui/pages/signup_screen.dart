@@ -43,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             size: 20.0,
                           ),
                           Text("Back",
-                            style: kSloganTextStyle.copyWith(
+                            style: kTextStyle.copyWith(
                                 color: Colors.white
                             ),
                           )
@@ -125,13 +125,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("I have",
-                                style: kSloganTextStyle.copyWith(
+                                style: kTextStyle.copyWith(
                                     color: Colors.white,
                                     fontSize: 18.0
                                 ),
                               ),
                               Text(" an account",
-                                style: kSloganTextStyle.copyWith(
+                                style: kTextStyle.copyWith(
                                     color: Color(0xFF69c730),
                                     fontSize: 18.0
                                 ),

@@ -29,7 +29,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Text(
               "You don't need a silver fork to have a good food",
               textAlign: TextAlign.center,
-              style: kSloganTextStyle,
+              style: kTextStyle,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

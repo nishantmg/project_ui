@@ -14,8 +14,8 @@ const kLogoTextStyle = TextStyle(
   fontFamily: "Italianno",
 );
 
-const kSloganTextStyle = TextStyle(
-  color: Colors.white,
+const kTextStyle = TextStyle(
+  color: Color(0xFF69c730),
   fontWeight: FontWeight.bold,
   fontSize: 20.0,
   fontFamily: "Varela Round",
