@@ -99,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         onPressed: () {
+                          print('hello');
                           Navigator.pushNamed(context, MainScreen.id);
                         },
                       ),

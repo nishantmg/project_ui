@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
+import 'package:food_delivery/ui/pages/profile_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 
@@ -16,7 +17,8 @@ class _MainScreenState extends State<MainScreen> {
   final List _pageOptions = [
     HomeScreen(),
     LoginScreen(),
-    SignUpScreen()
+    SignUpScreen(),
+    ProfileScreen()
   ];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -48,8 +50,8 @@ class _MainScreenState extends State<MainScreen> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         colorFilter: new ColorFilter.mode(
-                            Colors.black.withOpacity(0.6), BlendMode.srcATop),
-                        image: AssetImage("assets/images/background2.jpg"),
+                            Colors.black.withOpacity(0.8), BlendMode.srcATop),
+                        image: AssetImage("assets/images/menu.jpg"),
                         fit: BoxFit.cover
                     )
                 ),
@@ -130,8 +132,7 @@ class _MainScreenState extends State<MainScreen> {
             },
             items: [
               TitledNavigationBarItem(title: Text('Home'), icon: Icons.home),
-              TitledNavigationBarItem(title: Text('Search'), icon: Icons.search),
-              TitledNavigationBarItem(title: Text('Bag'), icon: Icons.card_travel),
+              TitledNavigationBarItem(title: Text('Favourite'), icon: Icons.favorite),
               TitledNavigationBarItem(title: Text('Orders'), icon: Icons.shopping_cart),
               TitledNavigationBarItem(title: Text('Profile'), icon: Icons.person_outline),
             ]
