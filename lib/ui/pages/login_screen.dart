@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           size: 20.0,
                         ),
                         Text("Back",
-                          style: kTextStyle.copyWith(
+                          style: kRoundedTextStyle.copyWith(
                               color: Colors.white
                           ),
                         )
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text("Forgot Password?",
-                                style: kTextStyle.copyWith(
+                                style: kRoundedTextStyle.copyWith(
                                     fontSize: 17,
                                     color: Color(0xFF69c730)
                                 ),
@@ -112,13 +112,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("New here?",
-                              style: kTextStyle.copyWith(
+                              style: kRoundedTextStyle.copyWith(
                                   color: Colors.white,
                                   fontSize: 18.0
                               ),
                             ),
                             Text(" Sign Up",
-                              style: kTextStyle.copyWith(
+                              style: kRoundedTextStyle.copyWith(
                                   color: Color(0xFF69c730),
                                   fontSize: 18.0
                               ),

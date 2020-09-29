@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/ui/pages/cart_screen.dart';
 import 'package:food_delivery/ui/pages/food_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         SignUpScreen.id: (context)=> SignUpScreen(),
         LoginScreen.id:(context)=> LoginScreen(),
         MainScreen.id:(context)=>MainScreen(),
-        FoodScreen.id:(context)=>FoodScreen()
+        FoodScreen.id:(context)=>FoodScreen(),
+        CartScreen.id:(context)=>CartScreen()
       },
     );
   }

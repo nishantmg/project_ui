@@ -40,7 +40,7 @@ class _FoodScreenState extends State<FoodScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 95),
                       child: Text("Spaghetti",
-                        style: kTextStyle.copyWith(
+                        style: kRoundedTextStyle.copyWith(
                             color: Colors.black
                         ),
                       ),
@@ -69,7 +69,7 @@ class _FoodScreenState extends State<FoodScreen> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical:10, horizontal: 22),
                         child: Text("Rs. 200",
-                          style: kTextStyle.copyWith(
+                          style: kRoundedTextStyle.copyWith(
                             color: Colors.lightGreenAccent,
                           ),
                         ),
@@ -95,7 +95,7 @@ class _FoodScreenState extends State<FoodScreen> {
                               color: Colors.black,
                             ),
                             Text("ADD TO FAVORITE",
-                              style: kTextStyle.copyWith(
+                              style: kRoundedTextStyle.copyWith(
                                 fontSize: 15,
                                 color: Colors.black,
                               ),
@@ -119,7 +119,7 @@ class _FoodScreenState extends State<FoodScreen> {
                               color: Colors.white,
                             ),
                             Text("ADD TO CART",
-                              style: kTextStyle.copyWith(
+                              style: kRoundedTextStyle.copyWith(
                                 fontSize: 15,
                                 color: Colors.white,
                               ),
@@ -136,7 +136,7 @@ class _FoodScreenState extends State<FoodScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text("Description",
-                        style: kTextStyle.copyWith(
+                        style: kRoundedTextStyle.copyWith(
                           color: Colors.black
                         ),
                       ),

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/pages/cart_screen.dart';
+import 'package:food_delivery/ui/pages/favorite_screen.dart';
 import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/profile_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
-import 'package:titled_navigation_bar/titled_navigation_bar.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+
 
 class MainScreen extends StatefulWidget {
   static String id ="main_screen";
@@ -13,11 +16,11 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  int _selectedIndex = 0;
   final List _pageOptions = [
     HomeScreen(),
-    LoginScreen(),
-    SignUpScreen(),
+    FavoriteScreen(),
+    CartScreen(),
     ProfileScreen()
   ];
 
@@ -28,6 +31,8 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       key:_scaffoldKey,
         appBar:AppBar(
+          backgroundColor: Colors.black.withOpacity(0.8),
+          toolbarHeight: 45,
           title: Text("Spoon",
             style: kLogoTextStyle.copyWith(
               fontSize: 45,
@@ -50,93 +55,116 @@ class _MainScreenState extends State<MainScreen> {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                         colorFilter: new ColorFilter.mode(
-                            Colors.black.withOpacity(0.8), BlendMode.srcATop),
+                            Colors.black.withOpacity(0.7), BlendMode.srcATop),
                         image: AssetImage("assets/images/menu.jpg"),
                         fit: BoxFit.cover
                     )
                 ),
               ),
-              Column(
-                children: <Widget>[
-                  UserAccountsDrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                    ),
-                    accountName: Text("Spoon",
-                      style: kTextStyle.copyWith(
-                        fontSize: 24,
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    UserAccountsDrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                      accountName: Text("Spoon",
+                        style: kRoundedTextStyle.copyWith(
+                          fontSize: 24,
+                        ),
+                      ),
+                      accountEmail: Text("Spoon@gmail.com"),
+                      currentAccountPicture: CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/avatar.png"),
                       ),
                     ),
-                    accountEmail: Text("Spoon@gmail.com"),
-                    currentAccountPicture: CircleAvatar(
-                      backgroundImage: AssetImage("assets/images/avatar.png"),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      ListTile(
-                          leading: Icon(Icons.account_circle,
+                    Column(
+                      children: [
+                        ListTile(
+                            leading: Icon(Icons.account_circle,
+                              color: Colors.white,
+                            ),
+                            title: Text('Profile',
+                              style: kRoundedTextStyle.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            onTap: () {
+
+                            }
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.settings,
                             color: Colors.white,
                           ),
-                          title: Text('Profile',
-                            style: kTextStyle.copyWith(
+                          title: Text('Setting',
+                            style: kRoundedTextStyle.copyWith(
                               color: Colors.white,
                             ),
                           ),
                           onTap: () {
-
-                          }
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.settings,
-                          color: Colors.white,
+                          },
                         ),
-                        title: Text('Setting',
-                          style: kTextStyle.copyWith(
+                        ListTile(
+                          leading: Icon(Icons.exit_to_app,
                             color: Colors.white,
                           ),
-                        ),
-                        onTap: () {
-                        },
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.exit_to_app,
-                          color: Colors.white,
-                        ),
-                        title: Text('Logout',
-                          style: kTextStyle.copyWith(
-                            color: Colors.white,
+                          title: Text('Logout',
+                            style: kRoundedTextStyle.copyWith(
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        onTap: () {
-                        },
-                      )
-                    ],
-                  )
-                ],
+                          onTap: () {
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),
 
         ),
-        body: _pageOptions[_currentIndex],
-        bottomNavigationBar: TitledBottomNavigationBar(
+        body: _pageOptions[_selectedIndex],
+      bottomNavigationBar: BottomNavyBar(
+        selectedIndex: _selectedIndex,
+        showElevation: true,
+        itemCornerRadius: 25,
+        curve: Curves.easeInBack,
+        onItemSelected: (index) => setState(() {
+          _selectedIndex = index;
+        }),
+        items: [
+          BottomNavyBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+            activeColor: Colors.red,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.favorite),
+            title: Text('Favorite'),
+            activeColor: Colors.purpleAccent,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.shopping_cart),
+            title: Text(
+              'Cart',
+            ),
+            activeColor: Colors.pink,
+            textAlign: TextAlign.center,
+          ),
+          BottomNavyBarItem(
+            icon: Icon(Icons.account_circle),
+            title: Text('Profile'),
             activeColor: Colors.blue,
-            inactiveColor: Color(0xFF69c730),
-            reverse: true,
-            currentIndex: 0, // Use this to update the Bar giving a position
-            onTap: (index){
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            items: [
-              TitledNavigationBarItem(title: Text('Home'), icon: Icons.home),
-              TitledNavigationBarItem(title: Text('Favourite'), icon: Icons.favorite),
-              TitledNavigationBarItem(title: Text('Orders'), icon: Icons.shopping_cart),
-              TitledNavigationBarItem(title: Text('Profile'), icon: Icons.person_outline),
-            ]
-        )
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+
     );
   }
 }

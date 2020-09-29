@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(height: 10.0,),
                   Text(
                     'Spoon',
-                    style: kTextStyle.copyWith(
+                    style: kRoundedTextStyle.copyWith(
                       color: Colors.black,
                       fontSize: 35
                     ),

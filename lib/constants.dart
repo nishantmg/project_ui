@@ -14,7 +14,14 @@ const kLogoTextStyle = TextStyle(
   fontFamily: "Italianno",
 );
 
-const kTextStyle = TextStyle(
+const kRobotoTextStyle = TextStyle(
+  color: Color(0xFF69c730),
+  fontWeight: FontWeight.bold,
+  fontSize: 20.0,
+  fontFamily: "Roboto",
+);
+
+const kRoundedTextStyle = TextStyle(
   color: Color(0xFF69c730),
   fontWeight: FontWeight.bold,
   fontSize: 20.0,
