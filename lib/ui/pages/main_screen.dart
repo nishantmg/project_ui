@@ -3,9 +3,7 @@ import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/pages/cart_screen.dart';
 import 'package:food_delivery/ui/pages/favorite_screen.dart';
 import 'package:food_delivery/ui/pages/home_screen.dart';
-import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/profile_screen.dart';
-import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 

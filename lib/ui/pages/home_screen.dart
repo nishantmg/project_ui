@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/ui/pages/food_screen.dart';
+import 'package:food_delivery/ui/pages/food_detail_screen.dart';
+import 'package:food_delivery/ui/pages/restaurant_detail_screen.dart';
+import 'package:food_delivery/ui/widgets/food_card.dart';
+import 'package:food_delivery/ui/widgets/restaurant_card.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "home_screen";
@@ -54,23 +58,86 @@ class _HomeScreenState extends State<HomeScreen> {
                               [
                                 GestureDetector(
                                   onTap: (){
-                                    Navigator.pushNamed(context, FoodScreen.id);
+                                    Navigator.pushNamed(context, FoodDetailScreen.id);
                                   },
-                                  child: FoodItem(
-                                    foodImage: AssetImage('assets/images/spaghetti.jpg'),
-                                    foodName: "Spaghetti",
-                                    foodPrice: "200",
+                                  child: FoodCard(
+                                    image: AssetImage('assets/images/spaghetti.jpg'),
+                                    name: "Spaghetti",
+                                    price: "200",
                                   ),
                                 ),
-                                FoodItem(
-                                  foodImage: AssetImage('assets/images/spaghetti.jpg'),
-                                  foodName: "Spaghetti",
-                                  foodPrice: "200",
+                                FoodCard(
+                                  image: AssetImage('assets/images/spaghetti.jpg'),
+                                  name: "Spaghetti",
+                                  price: "200",
                                 ),
-                                FoodItem(
-                                  foodImage: AssetImage('assets/images/spaghetti.jpg'),
-                                  foodName: "Spaghetti",
-                                  foodPrice: "200",
+                                FoodCard(
+                                  image: AssetImage('assets/images/spaghetti.jpg'),
+                                  name: "Spaghetti",
+                                  price: "200",
+                                ),
+                              ]
+                          ),
+                        )
+                      ],
+                    )
+                    ,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Restaurants",
+                          style: kRobotoTextStyle.copyWith(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 25,
+                              color: Colors.black
+                          ),
+                        ),
+
+                        GestureDetector(
+                          onTap: (){
+                          },
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text("View all",
+                              style: kRobotoTextStyle.copyWith(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18,
+                                  color: Colors.blue
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height:190,
+                    child:CustomScrollView(
+                      scrollDirection: Axis.horizontal,
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildListDelegate(
+                              [
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.pushNamed(context, RestaurantDetailScreen.id);
+                                  },
+                                  child: RestaurantCard(
+                                    image: AssetImage('assets/images/baishnab.jpeg'),
+                                    name: "Baishnab Sweets",
+
+                                  ),
+                                ),
+                                RestaurantCard(
+                                  image: AssetImage('assets/images/black_forest.png'),
+                                  name: "Black Forest",
+                                ),
+                                RestaurantCard(
+                                  image: AssetImage('assets/images/munch_time.png'),
+                                  name: "Munch Time Cafe",
                                 ),
                               ]
                           ),
@@ -89,84 +156,3 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class FoodItem extends StatelessWidget {
-  const FoodItem({this.foodImage,this.foodName,this.foodPrice});
-  final AssetImage foodImage;
-  final String foodName;
-  final String foodPrice;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        children: [
-          Container(
-            height: 158,
-            width: 200,
-            child: Stack(
-              children:[
-                Positioned(
-                  top: 30,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 6.0,
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white
-                    ),
-                    height: 125,
-                    width: 200,
-                    child:Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            children: [
-                              Text(foodName,
-                                style: kRoundedTextStyle.copyWith(
-                                  color: Colors.black
-                                ),
-                              ),
-                              SizedBox(width: 41,),
-                              Text("Rs. $foodPrice",
-                                style: kRoundedTextStyle.copyWith(
-                                  color: Colors.black
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10,)
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 10,
-                  child: Container(
-                    height: 100,
-                    width: 180,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      image: DecorationImage(
-                        image: foodImage,
-                        fit: BoxFit.fill
-                      )
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
