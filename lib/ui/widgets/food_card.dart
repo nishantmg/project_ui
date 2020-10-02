@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class FoodCard extends StatelessWidget {
   const FoodCard({this.image,this.name,this.price});
@@ -12,16 +14,20 @@ class FoodCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 158,
-            width: 200,
+            height: 19.9 * SizeConfig.heightMultiplier,
+            width: 45 * SizeConfig.widthMultiplier,
             child: Stack(
               children:[
                 Positioned(
                   top: 30,
                   child: Container(
+                    height: 15* SizeConfig.heightMultiplier,
+                    width: 44 * SizeConfig.widthMultiplier,
                     decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.9),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.2),
@@ -30,32 +36,33 @@ class FoodCard extends StatelessWidget {
                           ),
                         ],
                         borderRadius: BorderRadius.circular(5),
-                        color: Colors.white
                     ),
-                    height: 125,
-                    width: 200,
                     child:Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(name,
                                 style: kRobotoTextStyle.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                    fontSize: 2 * SizeConfig.textMultiplier,
                                     color: Colors.black
                                 ),
                               ),
-                              SizedBox(width: 41,),
                               Text("Rs. $price",
-                                style: kRoundedTextStyle.copyWith(
+                                style: kOpenSansTextStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 2 * SizeConfig.textMultiplier,
                                     color: Colors.black
                                 ),
                               )
                             ],
                           ),
                         ),
-                        SizedBox(height: 10,)
+                        SizedBox(height: 2.5 * SizeConfig.heightMultiplier,)
                       ],
                     ),
                   ),
@@ -63,8 +70,8 @@ class FoodCard extends StatelessWidget {
                 Positioned(
                   left: 10,
                   child: Container(
-                    height: 100,
-                    width: 180,
+                    height: 13* SizeConfig.heightMultiplier,
+                    width: 38 * SizeConfig.widthMultiplier,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(

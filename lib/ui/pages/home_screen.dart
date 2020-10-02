@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
 import 'package:food_delivery/ui/pages/restaurant_detail_screen.dart';
+import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 import 'package:food_delivery/ui/widgets/food_card.dart';
 import 'package:food_delivery/ui/widgets/restaurant_card.dart';
 
@@ -18,19 +19,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black.withOpacity(0.08),
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    colorFilter: new ColorFilter.mode(
-                        Colors.white.withOpacity(0.5), BlendMode.srcATop),
-                  image: AssetImage("assets/images/background2.jpg"),
-                  fit: BoxFit.cover
-                )
-              ),
-            ),
+            // Container(
+            //   decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //         colorFilter: new ColorFilter.mode(
+            //             Colors.black.withOpacity(0.3), BlendMode.srcATop),
+            //       image: AssetImage("assets/images/background2.jpg"),
+            //       fit: BoxFit.cover
+            //     )
+            //   ),
+            // ),
             SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -42,14 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text("Recommendation",
                         style: kRobotoTextStyle.copyWith(
                             fontWeight: FontWeight.w700,
-                            fontSize: 25,
+                            fontSize: 2.5 * SizeConfig.textMultiplier,
                             color: Colors.black
                         ),
                       ),
                     ),
                   ),
                   Container(
-                    height:190,
+                    height:25 * SizeConfig.heightMultiplier,
                     child:CustomScrollView(
                       scrollDirection: Axis.horizontal,
                       slivers: [
@@ -84,28 +86,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     ,
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 10),
                     child: Row(
                       mainAxisAlignment:MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Restaurants",
                           style: kRobotoTextStyle.copyWith(
                               fontWeight: FontWeight.w700,
-                              fontSize: 25,
+                              fontSize: 2.5 * SizeConfig.textMultiplier,
                               color: Colors.black
                           ),
                         ),
-
                         GestureDetector(
                           onTap: (){
                           },
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: Text("View all",
+                            child: Text("More",
                               style: kRobotoTextStyle.copyWith(
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 18,
-                                  color: Colors.blue
+                                  fontSize: 2 * SizeConfig.textMultiplier,
+                                  color: Colors.black
                               ),
                             ),
                           ),

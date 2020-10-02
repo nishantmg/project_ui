@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
+import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class SignUpScreen extends StatefulWidget {
   static String id = "signup_screen";
@@ -10,6 +12,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +48,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                           Text("Back",
                             style: kRoundedTextStyle.copyWith(
-                                color: Colors.white
+                                color: Colors.white,
+                                fontSize: 3.2 * SizeConfig.textMultiplier
                             ),
                           )
                         ],
@@ -76,12 +81,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               ),
                             ),
                             TextField(
+                              keyboardType: TextInputType.emailAddress,
                               decoration: kInputFieldDecoration.copyWith(
                                   labelText: "Email",
                                   hintText: "Email"
                               ),
                             ),
                             TextField(
+                              keyboardType: TextInputType.phone,
                               decoration: kInputFieldDecoration.copyWith(
                                   labelText: "Phone",
                                   hintText: "Phone"
@@ -89,11 +96,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             TextField(
                               decoration: kInputFieldDecoration.copyWith(
+                                  labelText: "Address",
+                                  hintText: "Address"
+                              ),
+                            ),
+                            TextField(
+                              obscureText: true,
+                              decoration: kInputFieldDecoration.copyWith(
                                   labelText: "Password",
                                   hintText: "Password"
                               ),
                             ),
                             TextField(
+                              obscureText: true,
                               decoration: kInputFieldDecoration.copyWith(
                                   labelText: "Confirm Password",
                                   hintText: "Confirm Password"
@@ -101,24 +116,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 30.0,),
+                        SizedBox(height: 6 * SizeConfig.heightMultiplier,),
                         FlatButton(
                           color: Color(0xFF69c730),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 60.0),
                             child: Text(
                               "SIGN UP",
-                              style: kButtonTextStyle,
+                              style: kButtonTextStyle.copyWith(
+                                  fontSize: 2.7 * SizeConfig.textMultiplier
+                              ),
                             ),
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, SignUpScreen.id);
                           },
                         ),
-                        SizedBox(height:30.0),
+                        SizedBox(height:5 * SizeConfig.heightMultiplier),
                         GestureDetector(
                           onTap: (){
-                            print('demo');
                             Navigator.pushNamed(context, LoginScreen.id);
                           },
                           child: Row(
@@ -127,18 +143,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Text("I have",
                                 style: kRoundedTextStyle.copyWith(
                                     color: Colors.white,
-                                    fontSize: 18.0
+                                    fontSize: 2.6 * SizeConfig.textMultiplier
                                 ),
                               ),
                               Text(" an account",
                                 style: kRoundedTextStyle.copyWith(
                                     color: Color(0xFF69c730),
-                                    fontSize: 18.0
+                                    fontSize: 2.6 * SizeConfig.textMultiplier
                                 ),
                               )
                             ],
                           ),
-                        )
+                        ),
+                        SizedBox(height:5 * SizeConfig.heightMultiplier),
                       ],
                     ),
                   ),

@@ -21,6 +21,12 @@ const kRobotoTextStyle = TextStyle(
   fontFamily: "Roboto",
 );
 
+const kOpenSansTextStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 20.0,
+  fontFamily: "Open Sans",
+);
+
 const kRoundedTextStyle = TextStyle(
   color: Color(0xFF69c730),
   fontWeight: FontWeight.bold,

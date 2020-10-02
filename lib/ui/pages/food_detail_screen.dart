@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 import 'package:food_delivery/ui/widgets/food_card.dart';
 
 class FoodDetailScreen extends StatefulWidget {
@@ -22,7 +23,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
           child: Stack(
             children: [
               Container(
-                height: 280,
+                height: 45.5 * SizeConfig.heightMultiplier,
                 decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/spaghetti.jpg"),
@@ -31,41 +32,44 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
               ),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        icon:Icon(Icons.arrow_back_ios,
-                          color:Colors.black,
-                          size: 20.0,
+                  Container(
+                    height: 8 * SizeConfig.heightMultiplier,
+                    decoration: BoxDecoration(
+                        color: Color(0xFF0E3311).withOpacity(0.3)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          icon:Icon(Icons.arrow_back_ios,
+                            color:Colors.white,
+                            size: 19.0,
+                          ),
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
                         ),
-                        onPressed: (){
-                          Navigator.pop(context);
-                        },
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 95),
-                        child: Text("Spaghetti",
+                        Text("Spaghetti",
                           style: kRoundedTextStyle.copyWith(
-                              color: Colors.black
+                            fontSize: 2.8 * SizeConfig.textMultiplier,
+                              color: Colors.white
                           ),
                         ),
-                      ),
-                      IconButton(
-                        icon:Icon(Icons.add_shopping_cart,
-                          color:Colors.black,
-                          size: 20.0,
+                        IconButton(
+                          icon:Icon(Icons.add_shopping_cart,
+                            color:Colors.white,
+                            size: 19.0,
+                          ),
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
                         ),
-                        onPressed: (){
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  SizedBox(height: 182,),
+                  SizedBox(height: 29.5 * SizeConfig.heightMultiplier,),
                   Container(
-                    width: 360,
-                    height: 50,
+                    height: 8 * SizeConfig.heightMultiplier,
                     decoration: BoxDecoration(
                         color: Color(0xFF0E3311).withOpacity(0.3)
                     ),
@@ -76,6 +80,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                           padding: const EdgeInsets.symmetric(vertical:10, horizontal: 22),
                           child: Text("Rs. 200",
                             style: kRoundedTextStyle.copyWith(
+                              fontSize: 2.8 * SizeConfig.textMultiplier,
                               color: Colors.lightGreenAccent,
                             ),
                           ),
@@ -84,80 +89,84 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GestureDetector(
-                        onTap: (){
-                          _key.currentState.showSnackBar(SnackBar(
-                            content: Text("Added to Favorite"),
-                            action: SnackBarAction(
-                              label: 'Undo',
-                              onPressed: () {
-                                // Some code to undo the change.
-                              },
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: (){
+                            _key.currentState.showSnackBar(SnackBar(
+                              content: Text("Added to Favorite",),
+                              action: SnackBarAction(
+                                label: 'Undo',
+                                onPressed: () {
+                                  // Some code to undo the change.
+                                },
+                              ),
+                            )
+                            );
+                          },
+                          child: Container(
+                            height: 7.8 * SizeConfig.heightMultiplier,
+                            decoration: BoxDecoration(
+                                color: Color(0XFFeeeef3)
                             ),
-                          )
-                          );
-                        },
-                        child: Container(
-                          width: 180,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: Color(0XFFeeeef3)
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal:19.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Icon(Icons.favorite,
-                                  color: Colors.black,
-                                ),
-                                Text("ADD TO FAVORITE",
-                                  style: kRoundedTextStyle.copyWith(
-                                    fontSize: 15,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:19.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.favorite,
+                                    size: 6 * SizeConfig.imageSizeMultiplier,
                                     color: Colors.black,
                                   ),
-                                ),
-                              ],
+                                  Text("ADD TO FAVORITE",
+                                    style: kRoundedTextStyle.copyWith(
+                                      fontSize: 1.8 * SizeConfig.textMultiplier,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: (){
-                          _key.currentState.showSnackBar(SnackBar(
-                            content: Text("Added to Cart"),
-                            action: SnackBarAction(
-                              label: 'Undo',
-                              onPressed: () {
-                                // Some code to undo the change.
-                              },
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: (){
+                            _key.currentState.showSnackBar(SnackBar(
+                              content: Text("Added to Cart"),
+                              action: SnackBarAction(
+                                label: 'Undo',
+                                onPressed: () {
+                                  // Some code to undo the change.
+                                },
+                              ),
+                            )
+                            );
+                          },
+                          child: Container(
+                            height: 7.8 * SizeConfig.heightMultiplier,
+                            decoration: BoxDecoration(
+                              color: Color(0XFF69c730),
                             ),
-                          )
-                          );
-                        },
-                        child: Container(
-                          width: 180,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Color(0XFF69c730),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal:25.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Icon(Icons.add_shopping_cart,
-                                  color: Colors.white,
-                                ),
-                                Text("ADD TO CART",
-                                  style: kRoundedTextStyle.copyWith(
-                                    fontSize: 15,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal:25.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.add_shopping_cart,
+                                    size: 6 * SizeConfig.imageSizeMultiplier,
                                     color: Colors.white,
                                   ),
-                                ),
-                              ],
+                                  Text("ADD TO CART",
+                                    style: kRoundedTextStyle.copyWith(
+                                      fontSize: 1.8 * SizeConfig.textMultiplier,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -165,13 +174,34 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:18.0,vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    padding: const EdgeInsets.only(bottom: 25),
+                    child: Column(
                       children: [
-                        Text("Description",
-                          style: kRoundedTextStyle.copyWith(
-                              color: Colors.black
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal:18.0,vertical: 12),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text("Description",
+                                style: kRoundedTextStyle.copyWith(
+                                    fontSize: 2.3 * SizeConfig.textMultiplier,
+                                    color: Colors.black
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25),
+                          child: Column(
+                            children: [
+                              Text("Spaghetti is a long, thin, solid, cylindrical noodle pasta. It is a staple food of traditional Italian cuisine. Like other pasta, spaghetti is made of milled wheat and water and sometimes enriched with vitamins and minerals. Italian spaghetti is typically made from durum wheat semolina.",
+                                style: kOpenSansTextStyle.copyWith(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 2.2 * SizeConfig.textMultiplier
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ],
@@ -184,6 +214,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       children: [
                         Text("You may also like",
                           style: kRoundedTextStyle.copyWith(
+                              fontSize: 2.3 * SizeConfig.textMultiplier,
                               color: Colors.black
                           ),
                         ),

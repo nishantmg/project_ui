@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/pages/profile_edit_screen.dart';
+import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class ProfileScreen extends StatefulWidget {
   static String id = "profile_screen";
@@ -12,66 +14,112 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 40.0),
-              child: Column(
-                children: <Widget>[
-                  CircleAvatar(
-                    radius: 50.0,
-                    backgroundImage: AssetImage('assets/images/avatar.png'),
-                  ),
-                  SizedBox(height: 10.0,),
-                  Text(
-                    'Spoon',
-                    style: kRoundedTextStyle.copyWith(
-                      color: Colors.black,
-                      fontSize: 35
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, bottom: 25.0),
+                child: Column(
+                  children: <Widget>[
+                    CircleAvatar(
+                      radius: 50.0,
+                      backgroundImage: AssetImage('assets/images/avatar.png'),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 2 * SizeConfig.heightMultiplier,),
+                    Text(
+                      'Spoon',
+                      style: kRoundedTextStyle.copyWith(
+                        color: Colors.black,
+                        fontSize: 5 * SizeConfig.textMultiplier
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 5.0),
-              child: Column(
-                children: <Widget>[
-                  Card(
-                    elevation: 4.0,
-                    child: ListTile(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      onTap: (){
+                        Navigator.pushNamed(context, ProfileEditScreen.id);
+                      },
+                      // leading: Icon(Icons.settings),
+                      title: Text('Account',
+                        style: kRoundedTextStyle.copyWith(
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontSize: 2.5 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      subtitle: Text('Edit Profile',
+                        style: kOpenSansTextStyle.copyWith(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 1.9 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      trailing: Icon(Icons.account_circle),
+                    ),
+                    ListTile(
                       onTap: (){
 
                       },
-                      leading: Icon(Icons.settings),
-                      title: Text('Setting'),
-                      subtitle: Text('Privacy and logout'),
-                      trailing: Icon(Icons.keyboard_arrow_right),
+                      // leading: Icon(Icons.settings),
+                      title: Text('Setting',
+                        style: kRoundedTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            fontSize: 2.5 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      subtitle: Text('Privacy and logout',
+                        style: kOpenSansTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 1.9 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      trailing: Icon(Icons.settings),
                     ),
-                  ),
-                  Card(
-                    elevation: 4.0,
-                    child: ListTile(
-                      leading: Icon(Icons.help_outline),
-                      title: Text('Help & Support'),
-                      subtitle: Text('Help center and legal support'),
-                      trailing: Icon(Icons.keyboard_arrow_right),
+                    ListTile(
+                      // leading: Icon(Icons.help_outline),
+                      title: Text('Help & Support',
+                        style: kRoundedTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            fontSize: 2.5 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      subtitle: Text('Help center and legal support',
+                        style: kOpenSansTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 1.9 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      trailing: Icon(Icons.help_outline),
                     ),
-                  ),
-                  Card(
-                    elevation: 4.0,
-                    child: ListTile(
-                      leading: Icon(Icons.question_answer),
-                      title: Text('FAQ'),
-                      subtitle: Text('Question and Answer'),
-                      trailing: Icon(Icons.keyboard_arrow_right),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                    ListTile(
+                      // leading: Icon(Icons.question_answer),
+                      title: Text('FAQ',
+                        style: kRoundedTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                            fontSize: 2.5 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      subtitle: Text('Question and Answer',
+                        style: kOpenSansTextStyle.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 1.9 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                      trailing: Icon(Icons.question_answer),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
