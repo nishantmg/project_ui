@@ -121,7 +121,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                                   ),
                                   Text("ADD TO FAVORITE",
                                     style: kRoundedTextStyle.copyWith(
-                                      fontSize: 1.8 * SizeConfig.textMultiplier,
+                                      fontSize: 1.7 * SizeConfig.textMultiplier,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -161,7 +161,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                                   ),
                                   Text("ADD TO CART",
                                     style: kRoundedTextStyle.copyWith(
-                                      fontSize: 1.8 * SizeConfig.textMultiplier,
+                                      fontSize: 1.7 * SizeConfig.textMultiplier,
                                       color: Colors.white,
                                     ),
                                   ),

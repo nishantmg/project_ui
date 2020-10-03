@@ -120,7 +120,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         FlatButton(
                           color: Color(0xFF69c730),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 60.0),
+                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 45.0),
                             child: Text(
                               "SIGN UP",
                               style: kButtonTextStyle.copyWith(

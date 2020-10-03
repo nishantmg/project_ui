@@ -46,7 +46,7 @@ class OrderItem extends StatelessWidget {
             height: 17 * SizeConfig.heightMultiplier,
             ),
           Positioned.fill(
-            left: 13 * SizeConfig.widthMultiplier,
+            left:9 * SizeConfig.widthMultiplier,
             child: Card(
               color: Colors.white,
               child: Row(
@@ -71,7 +71,7 @@ class OrderItem extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left:8,top:8.0,bottom:21),
+                            padding: const EdgeInsets.only(left:8,top:8.0,bottom:10),
                             child: Text("Rs.200",
                               style: kRobotoTextStyle.copyWith(
                                   fontSize: 2 * SizeConfig.textMultiplier,
@@ -88,53 +88,58 @@ class OrderItem extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top:50),
-                        child: Container(
-                          margin: EdgeInsets.only(right: 10.0),
-                          width:18 * SizeConfig.widthMultiplier,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFFAE6CB),
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: (){
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 10.0),
+                            width:18 * SizeConfig.widthMultiplier,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFFAE6CB),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                GestureDetector(
+                                  onTap: (){
 
-                                },
-                                child: Text('-',style:TextStyle(
-                                    fontSize: 20.0,
-                                    color:Color(0xFFFB9524)
-                                ),),
-                              ),
-                              Text("1",
-                                style: kRobotoTextStyle.copyWith(
-                                    fontSize: 2 * SizeConfig.textMultiplier,
-                                    color: Colors.black
+                                  },
+                                  child: Text('-',style:TextStyle(
+                                      fontSize: 20.0,
+                                      color:Color(0xFFFB9524)
+                                  ),),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: (){
+                                Text("1",
+                                  style: kRobotoTextStyle.copyWith(
+                                      fontSize: 2 * SizeConfig.textMultiplier,
+                                      color: Colors.black
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: (){
 
-                                },
-                                child: Text('+',style:TextStyle(
-                                    fontSize: 18.0,
-                                    color:Color(0xFFFB9524)
-                                ),),
-                              ),
-                            ],
+                                  },
+                                  child: Text('+',style:TextStyle(
+                                      fontSize: 18.0,
+                                      color:Color(0xFFFB9524)
+                                  ),),
+                                ),
+                              ],
+                            ),
                           ),
-                        ), //Counter
+                        ],
                       ),
-                      IconButton(
-                        icon: Icon(Icons.close,
-                          color: Colors.red,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GestureDetector(
+                          onTap: (){
+                          },
+                          child: Icon(Icons.close,
+                            color: Colors.red,
+                          ),
                         ),
-                        onPressed: (){
-                        },
-                      ),
+                      )
                     ],
                   )
                 ],

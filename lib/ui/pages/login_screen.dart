@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         FlatButton(
                           color: Color(0xFF69c730),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 60.0),
+                            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 45.0),
                             child: Text(
                               "SIGN IN",
                               style: kButtonTextStyle.copyWith(
@@ -138,7 +138,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             )
           ],
-
         ),
       ),
     );
