@@ -15,64 +15,55 @@ class RestaurantCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 19.9 * SizeConfig.heightMultiplier,
-            width: 45 * SizeConfig.widthMultiplier,
-            child: Stack(
-              children:[
-                Positioned(
-                  top: 30,
-                  child: Container(
-                    height: 13* SizeConfig.heightMultiplier,
-                    width: 44 * SizeConfig.widthMultiplier,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.9),
-                      boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            offset: Offset(0.0, 1.0), //(x,y)
-                            blurRadius: 6.0,
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(5),
-                    ),
-
-                    child:Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: Row(
-                            children: [
-                              Text(name,
-                                style: kRobotoTextStyle.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 2 * SizeConfig.textMultiplier,
-                                    color: Colors.black
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 10,)
-                      ],
+            height: 24* SizeConfig.heightMultiplier,
+            width: 30 * SizeConfig.widthMultiplier,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.9),
+              boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    offset: Offset(0.0, 1.0), //(x,y)
+                    blurRadius: 6.0,
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(5),
+            ),
+            child:Column(
+              children: [
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Container(
+                      height: 15* SizeConfig.heightMultiplier,
+                      width: 25 * SizeConfig.widthMultiplier,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                              image: image,
+                              fit: BoxFit.fill
+                          )
+                      ),
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 10,
-                  child: Container(
-                    height: 13* SizeConfig.heightMultiplier,
-                    width: 38 * SizeConfig.widthMultiplier,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: image,
-                            fit: BoxFit.fill
-                        )
-                    ),
-                  ),
-                )
-              ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(name,
+                          overflow: TextOverflow.visible,
+                          style: kRobotoTextStyle.copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 2 * SizeConfig.textMultiplier,
+                              color: Colors.black
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+                ),
+               ],
             ),
           ),
         ],

@@ -49,10 +49,13 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                             Navigator.pop(context);
                           },
                         ),
-                        Text("Spaghetti",
-                          style: kRoundedTextStyle.copyWith(
-                            fontSize: 2.8 * SizeConfig.textMultiplier,
-                              color: Colors.white
+                        Flexible(
+                          child: Text("Munch Time Cafe",
+                            overflow: TextOverflow.ellipsis,
+                            style: kRoundedTextStyle.copyWith(
+                                fontSize: 2.8 * SizeConfig.textMultiplier,
+                                color: Colors.white
+                            ),
                           ),
                         ),
                         IconButton(
@@ -74,8 +77,17 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                         color: Color(0xFF0E3311).withOpacity(0.3)
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical:10, horizontal: 22),
+                          child: Text("Spaghetti",
+                            style: kRoundedTextStyle.copyWith(
+                                fontSize: 2.8 * SizeConfig.textMultiplier,
+                                color: Colors.lightGreenAccent
+                            ),
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical:10, horizontal: 22),
                           child: Text("Rs. 200",
