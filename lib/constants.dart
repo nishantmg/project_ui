@@ -47,3 +47,17 @@ const kInputFieldDecoration = InputDecoration(
         borderSide: BorderSide(color: Colors.white54)
     )
 );
+
+const kEditProfileInputFieldDecoration = InputDecoration(
+    labelText: "First Name",
+    hintText: "First name",
+    labelStyle: TextStyle(
+      color: Color(0xFF69c730),
+    ),
+    enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.black)
+    ),
+    focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.black)
+    )
+);

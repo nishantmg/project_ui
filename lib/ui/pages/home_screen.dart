@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/resources/services/RestaurantService.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
 import 'package:food_delivery/ui/pages/restaurant_detail_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
@@ -16,6 +17,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    getRestaurants();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

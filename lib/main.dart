@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/ui/pages/cart_screen.dart';
+import 'package:food_delivery/ui/pages/change_password_screen.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
+import 'package:food_delivery/ui/pages/food_list_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
-import 'package:food_delivery/ui/pages/profile_edit_screen.dart';
+import 'package:food_delivery/ui/pages/edit_profile_screen.dart';
 import 'package:food_delivery/ui/pages/restaurant_detail_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/pages/welcome_screen.dart';
@@ -37,7 +39,9 @@ class MyApp extends StatelessWidget {
                 FoodDetailScreen.id:(context)=>FoodDetailScreen(),
                 CartScreen.id:(context)=>CartScreen(),
                 RestaurantDetailScreen.id:(context)=> RestaurantDetailScreen(),
-                ProfileEditScreen.id:(context)=>ProfileEditScreen()
+                EditProfileScreen.id:(context)=>EditProfileScreen(),
+                ChangePasswordScreen.id:(context)=>ChangePasswordScreen(),
+                FoodListScreen.id:(context)=>FoodListScreen()
               },
             );
           },

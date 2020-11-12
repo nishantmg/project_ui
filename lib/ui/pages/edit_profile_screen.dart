@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
-class ProfileEditScreen extends StatefulWidget {
-  static String id = "profile_edit_screen";
+class EditProfileScreen extends StatefulWidget {
+  static String id = "edit_profile_screen";
+
   @override
-  _ProfileEditScreenState createState() => _ProfileEditScreenState();
+  _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
-class _ProfileEditScreenState extends State<ProfileEditScreen> {
-
-  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-
+class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.4),
-      key: _key,
       body: SafeArea(
         child: SingleChildScrollView(
           child:Column(
@@ -38,12 +36,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           Navigator.pop(context);
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 95),
-                        child: Text("Edit Profile",
-                          style: kRoundedTextStyle.copyWith(
-                              color: Colors.black
-                          ),
+                      Text("Edit Profile",
+                        style: kRoundedTextStyle.copyWith(
+                          fontSize: 2.8 * SizeConfig.textMultiplier,
+                            color: Colors.black
                         ),
                       ),
                     ],
@@ -88,23 +84,29 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           hintText: "Address"
                       ),
                     ),
-                    TextField(
-                      obscureText: true,
-                      decoration: kInputFieldDecoration.copyWith(
-                          labelText: "Password",
-                          hintText: "Password"
-                      ),
-                    ),
-                    TextField(
-                      obscureText: true,
-                      decoration: kInputFieldDecoration.copyWith(
-                          labelText: "Confirm Password",
-                          hintText: "Confirm Password"
-                      ),
-                    ),
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FlatButton(
+                      onPressed: (){
+
+                      },
+                      color: Colors.lightGreen,
+                      child: Text("Save",
+                        style: kRoundedTextStyle.copyWith(
+                          color: Colors.white,
+                          fontSize: 2.8 * SizeConfig.textMultiplier
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -112,3 +114,4 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     );
   }
 }
+

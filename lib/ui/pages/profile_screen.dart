@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/ui/pages/profile_edit_screen.dart';
+import 'package:food_delivery/ui/pages/change_password_screen.dart';
+import 'package:food_delivery/ui/pages/edit_profile_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -43,7 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: <Widget>[
                     ListTile(
                       onTap: (){
-                        Navigator.pushNamed(context, ProfileEditScreen.id);
+                        Navigator.pushNamed(context, EditProfileScreen.id);
                       },
                       // leading: Icon(Icons.settings),
                       title: Text('Account',
@@ -63,23 +64,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     ListTile(
                       onTap: (){
-
+                        Navigator.pushNamed(context, ChangePasswordScreen.id);
                       },
                       // leading: Icon(Icons.settings),
-                      title: Text('Setting',
+                      title: Text('Security',
                         style: kRoundedTextStyle.copyWith(
                             fontWeight: FontWeight.normal,
                             color: Colors.black,
                             fontSize: 2.5 * SizeConfig.textMultiplier
                         ),
                       ),
-                      subtitle: Text('Privacy and logout',
+                      subtitle: Text('Change password ',
                         style: kOpenSansTextStyle.copyWith(
                             fontWeight: FontWeight.normal,
                             fontSize: 1.9 * SizeConfig.textMultiplier
                         ),
                       ),
-                      trailing: Icon(Icons.settings),
+                      trailing: Icon(Icons.lock),
                     ),
                     ListTile(
                       // leading: Icon(Icons.help_outline),
