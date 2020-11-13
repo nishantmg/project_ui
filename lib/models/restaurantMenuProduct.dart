@@ -1,7 +1,10 @@
 import 'package:food_delivery/models/menu.dart';
 import 'package:food_delivery/models/product.dart';
 import 'package:food_delivery/models/restaurant.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'restaurantMenuProduct.g.dart';
 
+@JsonSerializable(explicitToJson: true)
 class RestaurantMenuProduct {
   final int restaurantMenuProductId;
   final int menuId;
@@ -18,21 +21,23 @@ class RestaurantMenuProduct {
 
   RestaurantMenuProduct({this.restaurantMenuProductId, this.menuId, this.productId, this.restaurantId, this.productPrice, this.createdAt, this.updatedAt, this.deletedAt, this.restaurant, this.menu, this.product});
 
-  factory RestaurantMenuProduct.fromJson(Map<String,dynamic>json){
-    return RestaurantMenuProduct(
-             restaurantMenuProductId : json['restaurantMenuProductId'],
-            menuId : json['menuId'],
-            productId : json['productId'],
-            restaurantId : json['restaurantId'],
-            productPrice : json['productPrice'],
-            createdAt : json['createdAt'],
-            updatedAt : json['updatedAt'],
-            deletedAt : json['deletedAt'],
-            restaurant : Restaurant.fromJson(json['restaurant']),
-            menu : Menu.fromJson(json['menu']),
-            product : Product.fromJson(json['product']),
-    );
-  }
+  factory RestaurantMenuProduct.fromJson(Map<String,dynamic> json) => _$RestaurantMenuProductFromJson(json);
+  Map<String,dynamic> toJson() => _$RestaurantMenuProductToJson(this);
+  // factory RestaurantMenuProduct.fromJson(Map<String,dynamic>json){
+  //   return RestaurantMenuProduct(
+  //            restaurantMenuProductId : json['restaurantMenuProductId'],
+  //           menuId : json['menuId'],
+  //           productId : json['productId'],
+  //           restaurantId : json['restaurantId'],
+  //           productPrice : json['productPrice'],
+  //           createdAt : json['createdAt'],
+  //           updatedAt : json['updatedAt'],
+  //           deletedAt : json['deletedAt'],
+  //           restaurant : Restaurant.fromJson(json['restaurant']),
+  //           menu : Menu.fromJson(json['menu']),
+  //           product : Product.fromJson(json['product']),
+  //   );
+  // }
 
   // RestaurantMenuProduct.fromMap(Map<String,dynamic>data):
   //       restaurantMenuProductId = data['restaurantMenuProductId'],
@@ -46,7 +51,7 @@ class RestaurantMenuProduct {
   //       restaurant = Restaurant.fromMap(data['restaurant']),
   //       menu = Menu.fromMap(data['menu']),
   //       product = Product.fromMap(data['product']);
-  static List<RestaurantMenuProduct> fromData(List<Map<String,dynamic>> data){
-    return data.map((product)=> RestaurantMenuProduct.fromJson(product)).toList();
-  }
+  // static List<RestaurantMenuProduct> fromData(List<Map<String,dynamic>> data){
+  //   return data.map((product)=> RestaurantMenuProduct.fromJson(product)).toList();
+  // }
 }

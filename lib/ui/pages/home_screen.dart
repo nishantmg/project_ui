@@ -21,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    getRestaurantProducts();
     // print(getRestaurantProducts());
     super.initState();
   }
@@ -64,24 +65,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 25 * SizeConfig.heightMultiplier,
                     child: FutureBuilder(
                       builder: (context, productData) {
-                        print('data aauna paryo');
-                        print(productData.hasData);
                         print(productData.connectionState);
-                        // if (productData.connectionState == ConnectionState.done ||
-                        //     productData.hasData != null) {
-                        //   return ListView.builder(
-                        //       scrollDirection: Axis.horizontal,
-                        //       itemCount: 2,
-                        //       itemBuilder: (context, index) {
-                        //         print('product is loading');
-                        //         RestaurantMenuProduct restaurantProduct = productData.data[index];
-                        //       return FoodCard(
-                        //       image: AssetImage('assets/images/spaghetti.jpg'),
-                        //       name: "${restaurantProduct.product.productName}",
-                        //       price: "${restaurantProduct.productPrice}",
-                        //     );
-                        //   });
-                        // }
+                        if (productData.connectionState == ConnectionState.done &&
+                            productData.hasData != false) {
+                          return ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 2,
+                              itemBuilder: (context, index) {
+                                print('product is loading');
+                                RestaurantMenuProduct restaurantProduct = productData.data[index];
+                              return FoodCard(
+                              image: AssetImage('assets/images/spaghetti.jpg'),
+                              name: "${restaurantProduct.product.productName}",
+                              price: "${restaurantProduct.productPrice}",
+                            );
+                          });
+                        }
                         return Container();
                       },
                       future: getRestaurantProducts(),
@@ -152,9 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: FutureBuilder(
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
-                                  ConnectionState.done ||
-                              snapshot.hasData != null) {
-                            print(snapshot.hasData);
+                                  ConnectionState.done &&
+                              snapshot.hasData != false) {
                             return ListView.builder(
                               itemCount: snapshot.data.length,
                               scrollDirection: Axis.horizontal,

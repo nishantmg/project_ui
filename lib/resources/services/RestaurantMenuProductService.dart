@@ -9,10 +9,15 @@ Future<List<RestaurantMenuProduct>> getRestaurantProducts()async{
   http.Response response = await http.get(url);
   if(response.statusCode == 200)
   {
-    List<Map<String,dynamic>> products = List<Map<String,dynamic>>.from(jsonDecode(response.body));
-    print(RestaurantMenuProduct.fromData(products));
-    return RestaurantMenuProduct.fromData(products);
+    // List<Map<String,dynamic>> products = List<Map<String,dynamic>>.from(jsonDecode(response.body));
+    // return RestaurantMenuProduct.fromData(products);
+    return parseRestaurantProducts(response.body);
   }else{
     throw Exception('Failed to load restaurants');
   }
+}
+
+List<RestaurantMenuProduct> parseRestaurantProducts(String responseBody){
+  final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
+  return  parsed.map<RestaurantMenuProduct>((json) => RestaurantMenuProduct.fromJson(json)).toList();
 }

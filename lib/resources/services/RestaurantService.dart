@@ -9,8 +9,7 @@ Future<List<Restaurant>>getRestaurants() async{
   if(response.statusCode == 200)
   {
     // List<Map<String,dynamic>> restaurants = List<Map<String,dynamic>>.from(jsonDecode(response.body));
-    print('naya tarika');
-    print (parseRestaurants(response.body));
+    return parseRestaurants(response.body);
   }else{
     throw Exception('Failed to load restaurants');
   }
@@ -18,6 +17,6 @@ Future<List<Restaurant>>getRestaurants() async{
 
  List<Restaurant> parseRestaurants(String responseBody){
   // final parsed = Map<String,dynamic>.from(jsonDecode(responseBody));
-  final parsed = json.decode(responseBody).cast<List<Map<String,dynamic>>>();
-  return parsed.map<Restaurant>((json) => Restaurant.fromJson(json)).toList();
+  final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
+  return  parsed.map<Restaurant>((json) => Restaurant.fromJson(json)).toList();
 }
