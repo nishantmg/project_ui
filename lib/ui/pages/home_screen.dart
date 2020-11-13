@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/models/restaurant.dart';
+import 'package:food_delivery/models/restaurantMenuProduct.dart';
+import 'package:food_delivery/resources/services/RestaurantMenuProductService.dart';
 import 'package:food_delivery/resources/services/RestaurantService.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
 import 'package:food_delivery/ui/pages/restaurant_detail_screen.dart';
@@ -17,12 +19,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   void initState() {
+    // print(getRestaurantProducts());
     super.initState();
-    getRestaurants();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,75 +48,99 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Align(
                     alignment: Alignment.centerLeft,
-                    child:Padding(
-                      padding: const EdgeInsets.symmetric(horizontal:12.0,vertical: 8),
-                      child: Text("Recommendation",
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 8),
+                      child: Text(
+                        "Recommendation",
                         style: kRobotoTextStyle.copyWith(
                             fontWeight: FontWeight.w700,
                             fontSize: 2.5 * SizeConfig.textMultiplier,
-                            color: Colors.black
-                        ),
+                            color: Colors.black),
                       ),
                     ),
                   ),
                   Container(
-                    height:25 * SizeConfig.heightMultiplier,
-                    child:CustomScrollView(
-                      scrollDirection: Axis.horizontal,
-                      slivers: [
-                        SliverList(
-                          delegate: SliverChildListDelegate(
-                              [
-                                GestureDetector(
-                                  onTap: (){
-                                    Navigator.pushNamed(context, FoodDetailScreen.id);
-                                  },
-                                  child: FoodCard(
-                                    image: AssetImage('assets/images/spaghetti.jpg'),
-                                    name: "Spaghetti",
-                                    price: "200",
-                                  ),
-                                ),
-                                FoodCard(
-                                  image: AssetImage('assets/images/spaghetti.jpg'),
-                                  name: "Spaghetti",
-                                  price: "200",
-                                ),
-                                FoodCard(
-                                  image: AssetImage('assets/images/spaghetti.jpg'),
-                                  name: "Spaghetti",
-                                  price: "200",
-                                ),
-                              ]
-                          ),
-                        )
-                      ],
-                    )
-                    ,
+                    height: 25 * SizeConfig.heightMultiplier,
+                    child: FutureBuilder(
+                      builder: (context, productData) {
+                        print('data aauna paryo');
+                        print(productData.hasData);
+                        print(productData.connectionState);
+                        // if (productData.connectionState == ConnectionState.done ||
+                        //     productData.hasData != null) {
+                        //   return ListView.builder(
+                        //       scrollDirection: Axis.horizontal,
+                        //       itemCount: 2,
+                        //       itemBuilder: (context, index) {
+                        //         print('product is loading');
+                        //         RestaurantMenuProduct restaurantProduct = productData.data[index];
+                        //       return FoodCard(
+                        //       image: AssetImage('assets/images/spaghetti.jpg'),
+                        //       name: "${restaurantProduct.product.productName}",
+                        //       price: "${restaurantProduct.productPrice}",
+                        //     );
+                        //   });
+                        // }
+                        return Container();
+                      },
+                      future: getRestaurantProducts(),
+                    ),
+                    // child: CustomScrollView(
+                    //   scrollDirection: Axis.horizontal,
+                    //   slivers: [
+                    //     SliverList(
+                    //       delegate: SliverChildListDelegate([
+                    //         GestureDetector(
+                    //           onTap: () {
+                    //             Navigator.pushNamed(
+                    //                 context, FoodDetailScreen.id);
+                    //           },
+                    //           child: FoodCard(
+                    //             image:
+                    //                 AssetImage('assets/images/spaghetti.jpg'),
+                    //             name: "Spaghetti",
+                    //             price: "200",
+                    //           ),
+                    //         ),
+                    //         FoodCard(
+                    //           image: AssetImage('assets/images/spaghetti.jpg'),
+                    //           name: "Spaghetti",
+                    //           price: "200",
+                    //         ),
+                    //         FoodCard(
+                    //           image: AssetImage('assets/images/spaghetti.jpg'),
+                    //           name: "Spaghetti",
+                    //           price: "200",
+                    //         ),
+                    //       ]),
+                    //     )
+                    //   ],
+                    // ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 10),
                     child: Row(
-                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Restaurants",
+                        Text(
+                          "Restaurants",
                           style: kRobotoTextStyle.copyWith(
                               fontWeight: FontWeight.w700,
                               fontSize: 2.5 * SizeConfig.textMultiplier,
-                              color: Colors.black
-                          ),
+                              color: Colors.black),
                         ),
                         GestureDetector(
-                          onTap: (){
-                          },
+                          onTap: () {},
                           child: Align(
                             alignment: Alignment.centerRight,
-                            child: Text("More",
+                            child: Text(
+                              "More",
                               style: kRobotoTextStyle.copyWith(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 2 * SizeConfig.textMultiplier,
-                                  color: Colors.black
-                              ),
+                                  color: Colors.black),
                             ),
                           ),
                         ),
@@ -122,38 +148,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Container(
-                    height:190,
-                    child:CustomScrollView(
-                      scrollDirection: Axis.horizontal,
-                      slivers: [
-                        SliverList(
-                          delegate: SliverChildListDelegate(
-                              [
-                                GestureDetector(
-                                  onTap: (){
-                                    Navigator.pushNamed(context, RestaurantDetailScreen.id);
-                                  },
-                                  child: RestaurantCard(
-                                    image: AssetImage('assets/images/baishnab.jpeg'),
-                                    name: "Baishnab Sweets",
-
-                                  ),
-                                ),
-                                RestaurantCard(
-                                  image: AssetImage('assets/images/black_forest.png'),
-                                  name: "Black Forest",
-                                ),
-                                RestaurantCard(
-                                  image: AssetImage('assets/images/munch_time.png'),
-                                  name: "Munch Time Cafe",
-                                ),
-                              ]
-                          ),
-                        )
-                      ],
-                    )
-                    ,
-                  )
+                      height: 190,
+                      child: FutureBuilder(
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                                  ConnectionState.done ||
+                              snapshot.hasData != null) {
+                            print(snapshot.hasData);
+                            return ListView.builder(
+                              itemCount: snapshot.data.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                print('Restaurant is loading');
+                                Restaurant restaurant = snapshot.data[index];
+                                return RestaurantCard(
+                                  image: AssetImage(
+                                      'assets/images/black_forest.png'),
+                                  name: "${restaurant.restaurantName}",
+                                );
+                              },
+                            );
+                          }
+                          return Container();
+                        },
+                        future: getRestaurants(),
+                      ))
                 ],
               ),
             )
@@ -163,4 +182,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
