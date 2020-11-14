@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/models/cart.dart';
+import 'package:food_delivery/models/cartItem.dart';
+import 'package:food_delivery/resources/services/CartService.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
+import 'package:food_delivery/ui/widgets/order_item.dart';
 
 class CartScreen extends StatefulWidget {
   static String id = 'cart_screen';
@@ -11,160 +15,53 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCart();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.04),
       body:SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              OrderItem(),
-              OrderItem(),
-              OrderItem(),
-              OrderItem(),
-              OrderItem(),
-              OrderItem(),
-              OrderItem(),
-              OrderItem()
-            ],
-          ),
+          child: Container(
+            height: 50 * SizeConfig.heightMultiplier,
+            child: FutureBuilder(
+              builder: (context, snapshot) {
+                print("Data ${snapshot.data.cartItems}");
+                if (snapshot.connectionState ==
+                    ConnectionState.done &&
+                    snapshot.hasData != false) {
+                  return ListView.builder(
+                    itemCount: snapshot.data.cartItems.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      print('Cart is loading');
+                      CartItem cart = snapshot.data.cartItems[index];
+                      return GestureDetector(
+                        onTap: (){
+                          // String restaurantName = restaurant.restaurantName;
+                          // NetworkImage restaurantImage = NetworkImage('$imageUrl/${restaurant.image}');
+                          // Navigator.push(context, MaterialPageRoute(
+                          //     builder:(context) => RestaurantDetailScreen(restaurantName: restaurantName, restaurantImage: restaurantImage))
+                          // );
+                        },
+                        child: OrderItem(),
+                      );
+                    },
+                  );
+                }
+                return Container(
+                  child: Text("No Data"),
+                );
+              },
+              future: getCart(),
+            ),
+          )),
         ),
-      ),
     );
   }
 }
 
-class OrderItem extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
-      child: Stack(
-        children: [
-          Container(
-            height: 17 * SizeConfig.heightMultiplier,
-            ),
-          Positioned.fill(
-            left:9 * SizeConfig.widthMultiplier,
-            child: Card(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                    SizedBox(width: 14 * SizeConfig.widthMultiplier,),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top:12.0,left:8.0,bottom: 5.0),
-                            child: Text("Spaghetti",
-                              style: kRobotoTextStyle.copyWith(
-                                  fontSize: 2.5 * SizeConfig.textMultiplier,
-                                  color: Colors.black
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:8,top:8.0,bottom:10),
-                            child: Text("Rs.200",
-                              style: kRobotoTextStyle.copyWith(
-                                  fontSize: 2 * SizeConfig.textMultiplier,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.normal
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),//Naming and pricing
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 10.0),
-                            width:18 * SizeConfig.widthMultiplier,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFAE6CB),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                GestureDetector(
-                                  onTap: (){
-
-                                  },
-                                  child: Text('-',style:TextStyle(
-                                      fontSize: 20.0,
-                                      color:Color(0xFFFB9524)
-                                  ),),
-                                ),
-                                Text("1",
-                                  style: kRobotoTextStyle.copyWith(
-                                      fontSize: 2 * SizeConfig.textMultiplier,
-                                      color: Colors.black
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-
-                                  },
-                                  child: Text('+',style:TextStyle(
-                                      fontSize: 18.0,
-                                      color:Color(0xFFFB9524)
-                                  ),),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: (){
-                          },
-                          child: Icon(Icons.close,
-                            color: Colors.red,
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            top: 11,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 11 * SizeConfig.heightMultiplier,
-                width: 22 * SizeConfig.widthMultiplier,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/spaghetti.jpg"),
-                        fit: BoxFit.fill
-                    )
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}

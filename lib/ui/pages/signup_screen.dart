@@ -2,17 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/resources/services/UserService.dart';
+import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
+import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class SignUpScreen extends StatefulWidget {
   static String id = "signup_screen";
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
+
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
 
+  final _formKey = GlobalKey<FormState>();
+
+  String firstName;
+  String lastName;
+  String username;
+  String email;
+  String phone;
+  String password;
 
   @override
   Widget build(BuildContext context) {
@@ -65,56 +77,192 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           radius: 50.0,
                           backgroundImage: AssetImage("assets/images/avatar.png"),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextField(
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "First Name",
-                                  hintText: "First Name"
-                              ),
-                            ),
-                            TextField(
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Last Name",
-                                  hintText: "Last Name"
-                              ),
-                            ),
-                            TextField(
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Email",
-                                  hintText: "Email"
-                              ),
-                            ),
-                            TextField(
-                              keyboardType: TextInputType.phone,
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Phone",
-                                  hintText: "Phone"
-                              ),
-                            ),
-                            TextField(
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Address",
-                                  hintText: "Address"
-                              ),
-                            ),
-                            TextField(
-                              obscureText: true,
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Password",
-                                  hintText: "Password"
-                              ),
-                            ),
-                            TextField(
-                              obscureText: true,
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Confirm Password",
-                                  hintText: "Confirm Password"
-                              ),
-                            ),
-                          ],
+                        // Column(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: [
+                        //     TextField(
+                        //       onChanged: (value){
+                        //         firstName = value;
+                        //       },
+                        //       decoration: kInputFieldDecoration.copyWith(
+                        //           labelText: "First Name",
+                        //           hintText: "First Name"
+                        //       ),
+                        //     ),
+                        //     TextField(
+                        //       onChanged: (value){
+                        //         lastName = value;
+                        //       },
+                        //       decoration: kInputFieldDecoration.copyWith(
+                        //           labelText: "Last Name",
+                        //           hintText: "Last Name"
+                        //       ),
+                        //     ),
+                        //     TextField(
+                        //       onChanged: (value){
+                        //         username = value;
+                        //       },
+                        //       decoration: kInputFieldDecoration.copyWith(
+                        //           labelText: "Username",
+                        //           hintText: "Username"
+                        //       ),
+                        //     ),
+                        //     TextField(
+                        //       onChanged: (value){
+                        //         email = value;
+                        //       },
+                        //       keyboardType: TextInputType.emailAddress,
+                        //       decoration: kInputFieldDecoration.copyWith(
+                        //           labelText: "Email",
+                        //           hintText: "Email"
+                        //       ),
+                        //     ),
+                        //     TextField(
+                        //       onChanged: (value){
+                        //         phone = value;
+                        //       },
+                        //       keyboardType: TextInputType.phone,
+                        //       decoration: kInputFieldDecoration.copyWith(
+                        //           labelText: "Phone",
+                        //           hintText: "Phone"
+                        //       ),
+                        //     ),
+                        //     TextField(
+                        //       onChanged: (value){
+                        //         password = value;
+                        //       },
+                        //       obscureText: true,
+                        //       decoration: kInputFieldDecoration.copyWith(
+                        //           labelText: "Password",
+                        //           hintText: "Password"
+                        //       ),
+                        //     ),
+                        //     TextField(
+                        //       obscureText: true,
+                        //       decoration: kInputFieldDecoration.copyWith(
+                        //           labelText: "Confirm Password",
+                        //           hintText: "Confirm Password"
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        Form(
+                          key: _formKey,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value){
+                                    firstName = value;
+                                  },
+                                  decoration: kInputFieldDecoration.copyWith(
+                                      labelText: "First Name",
+                                      hintText: "First Name"
+                                  ),
+                                ),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value){
+                                    lastName = value;
+                                  },
+                                  decoration: kInputFieldDecoration.copyWith(
+                                      labelText: "Last Name",
+                                      hintText: "Last Name"
+                                  ),
+                                ),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value){
+                                    username = value;
+                                  },
+                                  decoration: kInputFieldDecoration.copyWith(
+                                      labelText: "Username",
+                                      hintText: "Username"
+                                  ),
+                                ),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (!value.endsWith('.com')) {
+                                      return 'Invalid email';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value){
+                                    email = value;
+                                  },
+                                  keyboardType: TextInputType.emailAddress,
+                                  decoration: kInputFieldDecoration.copyWith(
+                                      labelText: "Email",
+                                      hintText: "Email"
+                                  ),
+                                ),
+                                TextFormField(
+                                  validator: (value) {
+                                    if (value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value){
+                                    phone = value;
+                                  },
+                                  keyboardType: TextInputType.phone,
+                                  decoration: kInputFieldDecoration.copyWith(
+                                      labelText: "Phone",
+                                      hintText: "Phone"
+                                  ),
+                                ),
+                                TextFormField(
+                                  validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Please enter some text';
+                                      }else if (value.length < 8) {
+                                      return 'At least 8 characters';
+                                    }
+                                    return null;
+                                  },
+                                  onChanged: (value){
+                                    password = value;
+                                  },
+                                  obscureText: true,
+                                  decoration: kInputFieldDecoration.copyWith(
+                                      labelText: "Password",
+                                      hintText: "Password"
+                                  ),
+                                ),
+                                TextFormField(
+                                  validator: (value){
+                                    if(value.isEmpty){
+                                      return 'Please enter some text';
+                                    }
+                                    else if(value != password){
+                                      return 'Password not matched';
+                                    }
+                                    return null;
+                                  },
+                                  obscureText: true,
+                                  decoration: kInputFieldDecoration.copyWith(
+                                      labelText: "Confirm Password",
+                                      hintText: "Confirm Password"
+                                  ),
+                                ),
+                              ],
+                            )
                         ),
                         SizedBox(height: 6 * SizeConfig.heightMultiplier,),
                         FlatButton(
@@ -129,7 +277,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, SignUpScreen.id);
+                            if(_formKey.currentState.validate()){
+                              var map = new Map<String,dynamic>();
+                              map['firstName'] = firstName;
+                              map['lastName'] = lastName;
+                              map['userName'] = username;
+                              map['email'] = email;
+                              map['phone'] = phone;
+                              map['password'] = password;
+                              signUpUser(map);
+                              Navigator.pushNamed(context, MainScreen.id);
+                            }
                           },
                         ),
                         SizedBox(height:5 * SizeConfig.heightMultiplier),

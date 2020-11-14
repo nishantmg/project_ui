@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/resources/services/HttpCommon.dart';
+import 'package:food_delivery/resources/services/UserService.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
+import 'package:http/http.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = "login_screen";
@@ -11,6 +17,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  final storage = new FlutterSecureStorage();
+
+  String userName;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,12 +77,18 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             TextField(
+                              onChanged: (value) => {
+                                userName = value
+                              },
                               decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Email",
-                                  hintText: "Email"
+                                  labelText: "Username",
+                                  hintText: "Username"
                               ),
                             ),
                             TextField(
+                              onChanged: (value) => {
+                                password = value
+                              },
                               obscureText: true,
                               decoration: kInputFieldDecoration.copyWith(
                                   labelText: "Password",
@@ -103,9 +121,23 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            print('hello');
-                            Navigator.pushNamed(context, MainScreen.id);
+                          onPressed: () async {
+                            Map parsedData;
+                            var map = new Map();
+                            map['username'] = userName;
+                            map['password'] = password;
+                            await loginUser(map).then(
+                                    (dynamic res) => {
+                                      if(res.statusCode == 400){
+                                        // final storage = new FlutterSecureStorage();
+                                      }else if(res.statusCode == 200) {
+                                        parsedData = json.decode(res.body),
+                                        print(parsedData['jwtToken']),
+                                        storage.write(key: 'token', value: parsedData['jwtToken']),
+                                        httpClient.addHeader('Authorization', parsedData['jwtToken']),
+                                        Navigator.pushNamed(context, MainScreen.id)
+                                      }
+                            }).catchError((err) => print(err));
                           },
                         ),
                         SizedBox(height: 7 * SizeConfig.heightMultiplier),

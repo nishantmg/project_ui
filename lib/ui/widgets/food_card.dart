@@ -4,10 +4,11 @@ import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class FoodCard extends StatelessWidget {
-  const FoodCard({this.image,this.name,this.price});
-  final AssetImage image;
+  const FoodCard({this.image,this.name,this.price,this.restaurantName});
+  final NetworkImage image;
   final String name;
   final String price;
+  final String restaurantName;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +70,13 @@ class FoodCard extends StatelessWidget {
                         ],
                       ),
                       Text("Rs. $price",
+                        style: kOpenSansTextStyle.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 1.8 * SizeConfig.textMultiplier,
+                            color: Colors.black
+                        ),
+                      ),
+                      Text("$restaurantName",
                         style: kOpenSansTextStyle.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 1.8 * SizeConfig.textMultiplier,

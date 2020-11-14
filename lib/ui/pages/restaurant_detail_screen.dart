@@ -6,6 +6,11 @@ import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
   static String id = "restaurant_detail_screen";
+  final NetworkImage restaurantImage;
+  final String restaurantName;
+
+  const RestaurantDetailScreen({@required this.restaurantImage,@required this.restaurantName});
+
   @override
   _RestaurantDetailScreenState createState() => _RestaurantDetailScreenState();
 }
@@ -27,7 +32,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                   height: 25 * SizeConfig.heightMultiplier,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage("assets/images/baishnab.jpeg"),
+                        image: widget.restaurantImage,
                         fit: BoxFit.fill,
                       )),
                 ),
@@ -50,7 +55,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                               Navigator.pop(context);
                             },
                           ),
-                          Text("Baishnab Sweets",
+                          Text(widget.restaurantName,
                             style: kRoundedTextStyle.copyWith(
                                 fontSize: 2.8 * SizeConfig.textMultiplier,
                                 color: Colors.white
@@ -83,7 +88,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 25),
                             child: Column(
                               children: [
-                                Text('Baishnab Sweets',
+                                Text(widget.restaurantName,
                                 style: kRoundedTextStyle.copyWith(
                                   color: Colors.green
                                 ),

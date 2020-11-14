@@ -5,12 +5,12 @@ part 'restaurant.g.dart';
 class Restaurant{
     final int restaurantId;
     final String restaurantName;
-    final String restaurantImage;
+    final String image;
     final bool status ;
     final String createdAt;
     final String deletedAt;
 
-  Restaurant({this.restaurantId, this.restaurantName, this.restaurantImage, this.status, this.createdAt, this.deletedAt});
+  Restaurant({this.restaurantId, this.restaurantName, this.image, this.status, this.createdAt, this.deletedAt});
 
 
   factory Restaurant.fromJson(Map<String,dynamic> json) => _$RestaurantFromJson(json);

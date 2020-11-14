@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/restaurant.dart';
 import 'package:food_delivery/models/restaurantMenuProduct.dart';
+import 'package:food_delivery/resources/environment.dart';
 import 'package:food_delivery/resources/services/RestaurantMenuProductService.dart';
 import 'package:food_delivery/resources/services/RestaurantService.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
@@ -14,17 +15,12 @@ import 'package:food_delivery/ui/widgets/restaurant_card.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "home_screen";
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    getRestaurantProducts();
-    // print(getRestaurantProducts());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,48 +70,33 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (context, index) {
                                 print('product is loading');
                                 RestaurantMenuProduct restaurantProduct = productData.data[index];
-                              return FoodCard(
-                              image: AssetImage('assets/images/spaghetti.jpg'),
-                              name: "${restaurantProduct.product.productName}",
-                              price: "${restaurantProduct.productPrice}",
-                            );
+                              return GestureDetector(
+                                onTap: (){
+                                  // NetworkImage productImage = NetworkImage('$imageUrl/${restaurantProduct.product.productImage}');
+                                  // String restaurantName = restaurantProduct.restaurant.restaurantName;
+                                  // String productName = restaurantProduct.product.productName;
+                                  // String productPrice = restaurantProduct.productPrice.toString();
+                                  // String productDescription = restaurantProduct.product.description;
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => FoodDetailScreen(
+                                        product: restaurantProduct
+                                      )
+                                  )
+                                  );
+                                },
+                                child: FoodCard(
+                                  image: NetworkImage("$imageUrl/${restaurantProduct.product.productImage}"),
+                                  name: "${restaurantProduct.product.productName}",
+                                  price: "${restaurantProduct.productPrice}",
+                                  restaurantName: "${restaurantProduct.restaurant.restaurantName}",
+                                ),
+                              );
                           });
                         }
                         return Container();
                       },
                       future: getRestaurantProducts(),
                     ),
-                    // child: CustomScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   slivers: [
-                    //     SliverList(
-                    //       delegate: SliverChildListDelegate([
-                    //         GestureDetector(
-                    //           onTap: () {
-                    //             Navigator.pushNamed(
-                    //                 context, FoodDetailScreen.id);
-                    //           },
-                    //           child: FoodCard(
-                    //             image:
-                    //                 AssetImage('assets/images/spaghetti.jpg'),
-                    //             name: "Spaghetti",
-                    //             price: "200",
-                    //           ),
-                    //         ),
-                    //         FoodCard(
-                    //           image: AssetImage('assets/images/spaghetti.jpg'),
-                    //           name: "Spaghetti",
-                    //           price: "200",
-                    //         ),
-                    //         FoodCard(
-                    //           image: AssetImage('assets/images/spaghetti.jpg'),
-                    //           name: "Spaghetti",
-                    //           price: "200",
-                    //         ),
-                    //       ]),
-                    //     )
-                    //   ],
-                    // ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -159,10 +140,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemBuilder: (context, index) {
                                 print('Restaurant is loading');
                                 Restaurant restaurant = snapshot.data[index];
-                                return RestaurantCard(
-                                  image: AssetImage(
-                                      'assets/images/black_forest.png'),
-                                  name: "${restaurant.restaurantName}",
+                                return GestureDetector(
+                                  onTap: (){
+                                    String restaurantName = restaurant.restaurantName;
+                                    NetworkImage restaurantImage = NetworkImage('$imageUrl/${restaurant.image}');
+                                    Navigator.push(context, MaterialPageRoute(
+                                        builder:(context) => RestaurantDetailScreen(restaurantName: restaurantName, restaurantImage: restaurantImage))
+                                    );
+                                  },
+                                  child: RestaurantCard(
+                                    image: NetworkImage('$imageUrl/${restaurant.image}'),
+                                    name: "${restaurant.restaurantName}",
+                                  ),
                                 );
                               },
                             );

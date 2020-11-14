@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:food_delivery/resources/services/HttpCommon.dart';
 import 'package:food_delivery/ui/pages/cart_screen.dart';
 import 'package:food_delivery/ui/pages/change_password_screen.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
 import 'package:food_delivery/ui/pages/food_list_screen.dart';
+import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/pages/edit_profile_screen.dart';
@@ -12,6 +16,7 @@ import 'package:food_delivery/ui/pages/welcome_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 void main() {
+
   runApp(MyApp());
 }
 
@@ -32,6 +37,7 @@ class MyApp extends StatelessWidget {
               ),
               initialRoute: WelcomeScreen.id,
               routes: {
+                HomeScreen.id:(context)=>HomeScreen(),
                 WelcomeScreen.id : (context)=> WelcomeScreen(),
                 SignUpScreen.id: (context)=> SignUpScreen(),
                 LoginScreen.id:(context)=> LoginScreen(),

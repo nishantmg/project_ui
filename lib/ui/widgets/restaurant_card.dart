@@ -4,7 +4,7 @@ import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class RestaurantCard extends StatelessWidget {
   const RestaurantCard({this.image,this.name});
-  final AssetImage image;
+  final NetworkImage image;
   final String name;
 
   @override

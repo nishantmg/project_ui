@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/models/restaurantMenuProduct.dart';
+import 'package:food_delivery/resources/environment.dart';
+import 'package:food_delivery/resources/services/CartService.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 import 'package:food_delivery/ui/widgets/food_card.dart';
+import 'package:food_delivery/ui/widgets/notification.util.dart';
 
 class FoodDetailScreen extends StatefulWidget {
   static String id = "food_detail_screen";
+  final RestaurantMenuProduct product;
+
+  const FoodDetailScreen({this.product});
 
   @override
   _FoodDetailScreenState createState() => _FoodDetailScreenState();
@@ -26,7 +33,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                 height: 45.5 * SizeConfig.heightMultiplier,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage("assets/images/spaghetti.jpg"),
+                      image: NetworkImage("$imageUrl/${widget.product.product.productImage}"),
                       fit: BoxFit.fill,
                     )),
               ),
@@ -50,7 +57,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                           },
                         ),
                         Flexible(
-                          child: Text("Munch Time Cafe",
+                          child: Text(widget.product.restaurant.restaurantName,
                             overflow: TextOverflow.ellipsis,
                             style: kRoundedTextStyle.copyWith(
                                 fontSize: 2.8 * SizeConfig.textMultiplier,
@@ -81,7 +88,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical:10, horizontal: 22),
-                          child: Text("Spaghetti",
+                          child: Text(widget.product.product.productName,
                             style: kRoundedTextStyle.copyWith(
                                 fontSize: 2.8 * SizeConfig.textMultiplier,
                                 color: Colors.lightGreenAccent
@@ -90,7 +97,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical:10, horizontal: 22),
-                          child: Text("Rs. 200",
+                          child: Text("Rs.${widget.product.productPrice}",
                             style: kRoundedTextStyle.copyWith(
                               fontSize: 2.8 * SizeConfig.textMultiplier,
                               color: Colors.lightGreenAccent,
@@ -145,17 +152,17 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: (){
-                            _key.currentState.showSnackBar(SnackBar(
-                              content: Text("Added to Cart"),
-                              action: SnackBarAction(
-                                label: 'Undo',
-                                onPressed: () {
-                                  // Some code to undo the change.
-                                },
-                              ),
-                            )
-                            );
+                          onTap: () async{
+                            await addItemToCart(
+                              widget.product.product.productId,
+                              1,
+                              widget.product.productPrice,
+                              widget.product.productPrice
+                            ).then((res) => {
+                              _key.currentState.showSnackBar(MessageBox.showMessage("Product Added to cart"))
+                            }).catchError((err) => {
+                              _key.currentState.showSnackBar(MessageBox.showMessage("Error adding to cart"))
+                            });
                           },
                           child: Container(
                             height: 7.8 * SizeConfig.heightMultiplier,
@@ -207,7 +214,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           child: Column(
                             children: [
-                              Text("Spaghetti is a long, thin, solid, cylindrical noodle pasta. It is a staple food of traditional Italian cuisine. Like other pasta, spaghetti is made of milled wheat and water and sometimes enriched with vitamins and minerals. Italian spaghetti is typically made from durum wheat semolina.",
+                              Text(widget.product.product.description,
                                 style: kOpenSansTextStyle.copyWith(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 2.2 * SizeConfig.textMultiplier
@@ -245,20 +252,10 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                                   onTap: (){
                                   },
                                   child: FoodCard(
-                                    image: AssetImage('assets/images/spaghetti.jpg'),
-                                    name: "Spaghetti",
-                                    price: "200",
+                                    image: NetworkImage("$imageUrl/${widget.product.product.productImage}"),
+                                    name: widget.product.product.productName,
+                                    price: widget.product.productPrice.toString(),
                                   ),
-                                ),
-                                FoodCard(
-                                  image: AssetImage('assets/images/spaghetti.jpg'),
-                                  name: "Spaghetti",
-                                  price: "200",
-                                ),
-                                FoodCard(
-                                  image: AssetImage('assets/images/spaghetti.jpg'),
-                                  name: "Spaghetti",
-                                  price: "200",
                                 ),
                               ]
                           ),
@@ -276,3 +273,4 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
     );
   }
 }
+
