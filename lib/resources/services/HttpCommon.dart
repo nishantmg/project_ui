@@ -1,7 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:food_delivery/resources/environment.dart';
 import 'package:http/http.dart' as http;
 
 SpoonHttpClient client;
@@ -21,7 +17,7 @@ class SpoonHttpClient extends http.BaseClient
 
   addHeader(key, value)
   {
-    defaultHeaders[key] = 'Bearer ${value}';
+    defaultHeaders[key] = 'Bearer $value';
   }
 }
 

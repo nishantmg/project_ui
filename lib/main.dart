@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:food_delivery/resources/services/HttpCommon.dart';
 import 'package:food_delivery/ui/pages/cart_screen.dart';
 import 'package:food_delivery/ui/pages/change_password_screen.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
@@ -16,7 +13,6 @@ import 'package:food_delivery/ui/pages/welcome_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 void main() {
-
   runApp(MyApp());
 }
 

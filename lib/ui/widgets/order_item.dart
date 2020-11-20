@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/models/cartItem.dart';
+import 'package:food_delivery/resources/environment.dart';
+import 'package:food_delivery/resources/services/CartService.dart';
 import 'SizeConfig.dart';
 
 class OrderItem extends StatefulWidget {
+
+  final CartItem cart;
+
+  const OrderItem({this.cart});
+
   @override
   _OrderItemState createState() => _OrderItemState();
 }
 
 class _OrderItemState extends State<OrderItem> {
-
-  int quantity = 0;
+  int quantity;
 
   @override
   Widget build(BuildContext context) {
+    quantity = widget.cart.quantity.toInt();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
       child: Stack(
@@ -38,16 +46,23 @@ class _OrderItemState extends State<OrderItem> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top:12.0,left:8.0,bottom: 5.0),
-                              child: Text("Spaghetti",
+                              child: Text(widget.cart.product.productName,
+                                overflow: TextOverflow.visible,
                                 style: kRobotoTextStyle.copyWith(
-                                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                                    fontSize: 2 * SizeConfig.textMultiplier,
                                     color: Colors.black
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left:8,top:8.0,bottom:10),
-                              child: Text("Rs.200",
+                              child: widget.cart != null ? Text("Rs.${widget.cart.productPrice}",
+                                style: kRobotoTextStyle.copyWith(
+                                    fontSize: 2 * SizeConfig.textMultiplier,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.normal
+                                ),
+                              ) : Text("Rs.aayena",
                                 style: kRobotoTextStyle.copyWith(
                                     fontSize: 2 * SizeConfig.textMultiplier,
                                     color: Colors.black,
@@ -68,7 +83,8 @@ class _OrderItemState extends State<OrderItem> {
                         children: [
                           Container(
                             margin: EdgeInsets.only(right: 10.0),
-                            width:18 * SizeConfig.widthMultiplier,
+                            height:10 * SizeConfig.widthMultiplier,
+                            width:21 * SizeConfig.widthMultiplier,
                             decoration: BoxDecoration(
                               color: Color(0xFFFFAE6CB),
                               borderRadius: BorderRadius.circular(15.0),
@@ -78,19 +94,29 @@ class _OrderItemState extends State<OrderItem> {
                               children: <Widget>[
                                 GestureDetector(
                                   onTap: (){
+                                    decreaseQuantity(widget.cart.cartId, widget.cart.cartItemId);
                                     setState(() {
+                                      print(quantity);
                                       if(quantity>0){
                                         quantity--;
                                       }
-                                      quantity=0;
+                                      quantity=1;
                                     });
                                   },
-                                  child: Text('-',style:TextStyle(
-                                      fontSize: 20.0,
-                                      color:Color(0xFFFB9524)
-                                  ),),
+                                  child: Container(
+                                    width: 5 * SizeConfig.widthMultiplier,
+                                    child: Text('-',style:TextStyle(
+                                        fontSize: 23.0,
+                                        color:Color(0xFFFB9524)
+                                    ),),
+                                  ),
                                 ),
-                                Text(quantity.toString(),
+                                widget.cart !=null ? Text(quantity.toString(),
+                                  style: kRobotoTextStyle.copyWith(
+                                      fontSize: 2 * SizeConfig.textMultiplier,
+                                      color: Colors.black
+                                  ),
+                                ) : Text(quantity.toString(),
                                   style: kRobotoTextStyle.copyWith(
                                       fontSize: 2 * SizeConfig.textMultiplier,
                                       color: Colors.black
@@ -98,14 +124,19 @@ class _OrderItemState extends State<OrderItem> {
                                 ),
                                 GestureDetector(
                                   onTap: (){
+                                    print(quantity);
+                                    increaseQuantity(widget.cart.cartId, widget.cart.cartItemId);
                                     setState(() {
                                       quantity++;
                                     });
                                   },
-                                  child: Text('+',style:TextStyle(
-                                      fontSize: 18.0,
-                                      color:Color(0xFFFB9524)
-                                  ),),
+                                  child: Container(
+                                    width: 5 * SizeConfig.widthMultiplier,
+                                    child: Text('+',style:TextStyle(
+                                        fontSize: 18.0,
+                                        color:Color(0xFFFB9524)
+                                    ),),
+                                  ),
                                 ),
                               ],
                             ),
@@ -116,7 +147,8 @@ class _OrderItemState extends State<OrderItem> {
                         padding: const EdgeInsets.all(8.0),
                         child: GestureDetector(
                           onTap: (){
-                          },
+                            deleteCartItem(widget.cart.cartId, widget.cart.cartItemId);
+                            },
                           child: Icon(Icons.close,
                             color: Colors.red,
                           ),
@@ -138,7 +170,7 @@ class _OrderItemState extends State<OrderItem> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     image: DecorationImage(
-                        image: AssetImage("assets/images/spaghetti.jpg"),
+                        image: NetworkImage("$imageUrl/${widget.cart.product.productImage}"),
                         fit: BoxFit.fill
                     )
                 ),

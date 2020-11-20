@@ -27,20 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.08),
       body: SafeArea(
-        child: Stack(
-          children: [
-            // Container(
-            //   decoration: BoxDecoration(
-            //     image: DecorationImage(
-            //         colorFilter: new ColorFilter.mode(
-            //             Colors.black.withOpacity(0.3), BlendMode.srcATop),
-            //       image: AssetImage("assets/images/background2.jpg"),
-            //       fit: BoxFit.cover
-            //     )
-            //   ),
-            // ),
-            SingleChildScrollView(
-              child: Column(
+        child: RefreshIndicator(
+          child: ListView(
+            children: [
+              Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Align(
@@ -60,26 +50,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     height: 25 * SizeConfig.heightMultiplier,
                     child: FutureBuilder(
-                      builder: (context, productData) {
-                        print(productData.connectionState);
-                        if (productData.connectionState == ConnectionState.done &&
-                            productData.hasData != false) {
-                          return ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 2,
-                              itemBuilder: (context, index) {
-                                print('product is loading');
-                                RestaurantMenuProduct restaurantProduct = productData.data[index];
+                      builder: (context, snapshot) {
+                        print(snapshot.connectionState);
+                        if (snapshot.connectionState !=
+                            ConnectionState.done &&
+                            snapshot.hasData == false) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 2,
+                            itemBuilder: (context, index) {
+                              print('product is loading');
+                              RestaurantMenuProduct restaurantProduct = snapshot.data[index];
                               return GestureDetector(
                                 onTap: (){
-                                  // NetworkImage productImage = NetworkImage('$imageUrl/${restaurantProduct.product.productImage}');
-                                  // String restaurantName = restaurantProduct.restaurant.restaurantName;
-                                  // String productName = restaurantProduct.product.productName;
-                                  // String productPrice = restaurantProduct.productPrice.toString();
-                                  // String productDescription = restaurantProduct.product.description;
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) => FoodDetailScreen(
-                                        product: restaurantProduct
+                                          product: restaurantProduct
                                       )
                                   )
                                   );
@@ -91,9 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   restaurantName: "${restaurantProduct.restaurant.restaurantName}",
                                 ),
                               );
-                          });
-                        }
-                        return Container();
+                            });
                       },
                       future: getRestaurantProducts(),
                     ),
@@ -131,41 +121,53 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 190,
                       child: FutureBuilder(
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                                  ConnectionState.done &&
-                              snapshot.hasData != false) {
-                            return ListView.builder(
-                              itemCount: snapshot.data.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                print('Restaurant is loading');
-                                Restaurant restaurant = snapshot.data[index];
-                                return GestureDetector(
-                                  onTap: (){
-                                    String restaurantName = restaurant.restaurantName;
-                                    NetworkImage restaurantImage = NetworkImage('$imageUrl/${restaurant.image}');
-                                    Navigator.push(context, MaterialPageRoute(
-                                        builder:(context) => RestaurantDetailScreen(restaurantName: restaurantName, restaurantImage: restaurantImage))
-                                    );
-                                  },
-                                  child: RestaurantCard(
-                                    image: NetworkImage('$imageUrl/${restaurant.image}'),
-                                    name: "${restaurant.restaurantName}",
-                                  ),
-                                );
-                              },
+                          if (snapshot.connectionState !=
+                              ConnectionState.done &&
+                              snapshot.hasData == false) {
+                            return Center(
+                              child: CircularProgressIndicator(
+                                backgroundColor: Colors.green,
+                              ),
                             );
                           }
-                          return Container();
+                          return ListView.builder(
+                            itemCount: snapshot.data.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              print('Restaurant is loading');
+                              Restaurant restaurant = snapshot.data[index];
+                              return GestureDetector(
+                                onTap: (){
+                                  String restaurantName = restaurant.restaurantName;
+                                  NetworkImage restaurantImage = NetworkImage('$imageUrl/${restaurant.image}');
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder:(context) => RestaurantDetailScreen(restaurantName: restaurantName, restaurantImage: restaurantImage))
+                                  );
+                                },
+                                child: RestaurantCard(
+                                  image: NetworkImage('$imageUrl/${restaurant.image}'),
+                                  name: "${restaurant.restaurantName}",
+                                ),
+                              );
+                            },
+                          );
                         },
                         future: getRestaurants(),
-                      ))
+                      )),
                 ],
               ),
-            )
-          ],
+            ],
+          ),
+          onRefresh: _onRefresh,
         ),
       ),
     );
+  }
+
+  Future<Null> _onRefresh()async{
+    setState(() {
+    });
+    await Future.delayed(Duration(seconds: 1));
+    return null;
   }
 }

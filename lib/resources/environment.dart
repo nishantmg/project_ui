@@ -1,3 +1,3 @@
-const String baseurl = "http://192.168.1.110:5000/api";
+const String baseurl = "http://192.168.100.51:5000/api";
 
-const String imageUrl = "http://192.168.1.110/images";
+const String imageUrl = "http://192.168.100.51/images";
