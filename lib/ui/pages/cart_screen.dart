@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/cartItem.dart';
 import 'package:food_delivery/resources/services/CartService.dart';
+import 'package:food_delivery/ui/pages/order_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 import 'package:food_delivery/ui/widgets/order_item.dart';
 
@@ -15,7 +16,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      new GlobalKey<RefreshIndicatorState>();
+  new GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +27,17 @@ class _CartScreenState extends State<CartScreen> {
             child: StreamBuilder(
               stream: getCart(),
               builder: (context, snapshot) {
-                if (snapshot.connectionState != ConnectionState.done &&
+                if ((snapshot.connectionState != ConnectionState.done) &&
                     snapshot.hasData == false) {
+                  print('data xaina${snapshot.connectionState}');
                   return Center(
                     child: CircularProgressIndicator(
                       backgroundColor: Colors.green,
                     ),
+                  );
+                }else if(snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false){
+                  return Center(
+                    child: Text("Cart is empty"),
                   );
                 }
                 return Column(
@@ -44,10 +50,11 @@ class _CartScreenState extends State<CartScreen> {
                           print('Cart is loading');
                           CartItem cart = snapshot.data.cartItems[index];
                           return Dismissible(
-                              key:Key(index.toString()),
-                              onDismissed: (direction){
-                                setState(()async{
-                                  await deleteCartItem(cart.cartId, cart.cartItemId);
+                              key: Key(index.toString()),
+                              onDismissed: (direction) {
+                                setState(() async {
+                                  await deleteCartItem(
+                                      cart.cartId, cart.cartItemId);
                                 });
                               },
                               child: OrderItem(
@@ -61,7 +68,8 @@ class _CartScreenState extends State<CartScreen> {
                       child: FlatButton(
                         color: Color(0xFF69c730),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 45.0),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12.0, horizontal: 45.0),
                           child: Text(
                             "PROCEED",
                             style: kButtonTextStyle.copyWith(
@@ -69,8 +77,8 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                           ),
                         ),
-                        onPressed: ()  {
-
+                        onPressed: () {
+                          Navigator.pushNamed(context, OrderScreen.id);
                         },
                       ),
                     ),
@@ -87,5 +95,16 @@ class _CartScreenState extends State<CartScreen> {
     setState(() {});
     await Future.delayed(Duration(seconds: 1));
     return null;
+  }
+
+  _proceed(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (sheetContext) =>
+          BottomSheet(
+            builder: (_) => OrderScreen(),
+            onClosing: () {},
+          ),
+    );
   }
 }

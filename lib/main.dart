@@ -7,6 +7,8 @@ import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/pages/edit_profile_screen.dart';
+import 'package:food_delivery/ui/pages/order_history_screen.dart';
+import 'package:food_delivery/ui/pages/order_screen.dart';
 import 'package:food_delivery/ui/pages/restaurant_detail_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/pages/welcome_screen.dart';
@@ -43,7 +45,10 @@ class MyApp extends StatelessWidget {
                 RestaurantDetailScreen.id:(context)=> RestaurantDetailScreen(),
                 EditProfileScreen.id:(context)=>EditProfileScreen(),
                 ChangePasswordScreen.id:(context)=>ChangePasswordScreen(),
-                FoodListScreen.id:(context)=>FoodListScreen()
+                FoodListScreen.id:(context)=>FoodListScreen(),
+                CartScreen.id:(context)=>CartScreen(),
+                OrderScreen.id:(context)=>OrderScreen(),
+                OrderHistoryScreen.id:(context)=>OrderHistoryScreen()
               },
             );
           },

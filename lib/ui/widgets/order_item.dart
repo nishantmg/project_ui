@@ -29,132 +29,123 @@ class _OrderItemState extends State<OrderItem> {
             height: 17 * SizeConfig.heightMultiplier,
           ),
           Positioned.fill(
-            left:9 * SizeConfig.widthMultiplier,
+            left:8* SizeConfig.widthMultiplier,
             child: Card(
               color: Colors.white,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  SizedBox(width: 14 * SizeConfig.widthMultiplier,),
+                  Container(
+                    width: 60,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          child: Text(widget.cart.product.productName,
+                            overflow: TextOverflow.visible,
+                            style: kRobotoTextStyle.copyWith(
+                                fontSize: 2 * SizeConfig.textMultiplier,
+                                color: Colors.black
+                            ),
+                          ),
+                        ),
+                        widget.cart != null ? Text("Rs.${widget.cart.productPrice}",
+                          style: kRobotoTextStyle.copyWith(
+                              fontSize: 2 * SizeConfig.textMultiplier,
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal
+                          ),
+                        ) : Text("Rs.aayena",
+                          style: kRobotoTextStyle.copyWith(
+                              fontSize: 2 * SizeConfig.textMultiplier,
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(width: 14 * SizeConfig.widthMultiplier,),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top:12.0,left:8.0,bottom: 5.0),
-                              child: Text(widget.cart.product.productName,
-                                overflow: TextOverflow.visible,
-                                style: kRobotoTextStyle.copyWith(
-                                    fontSize: 2 * SizeConfig.textMultiplier,
-                                    color: Colors.black
+                      Container(
+                        margin: EdgeInsets.only(right: 10.0),
+                        height:8 * SizeConfig.widthMultiplier,
+                        width:21 * SizeConfig.widthMultiplier,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFFFAE6CB),
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            GestureDetector(
+                              onTap: (){
+                                decreaseQuantity(widget.cart.cartId, widget.cart.cartItemId);
+                                setState(() {
+                                  print(quantity);
+                                  if(quantity>0){
+                                    quantity--;
+                                  }
+                                  quantity=1;
+                                });
+                              },
+                              child: Container(
+                                width: 5 * SizeConfig.widthMultiplier,
+                                child: Center(
+                                  child: Text('-',style:TextStyle(
+                                      fontSize: 23.0,
+                                      color:Color(0xFFFB9524)
+                                  ),),
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left:8,top:8.0,bottom:10),
-                              child: widget.cart != null ? Text("Rs.${widget.cart.productPrice}",
-                                style: kRobotoTextStyle.copyWith(
-                                    fontSize: 2 * SizeConfig.textMultiplier,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal
-                                ),
-                              ) : Text("Rs.aayena",
-                                style: kRobotoTextStyle.copyWith(
-                                    fontSize: 2 * SizeConfig.textMultiplier,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.normal
-                                ),
+                            widget.cart !=null ? Text(quantity.toString(),
+                              style: kRobotoTextStyle.copyWith(
+                                  fontSize: 2 * SizeConfig.textMultiplier,
+                                  color: Colors.black
                               ),
-                            )
+                            ) : Text(quantity.toString(),
+                              style: kRobotoTextStyle.copyWith(
+                                  fontSize: 2 * SizeConfig.textMultiplier,
+                                  color: Colors.black
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: (){
+                                print(quantity);
+                                increaseQuantity(widget.cart.cartId, widget.cart.cartItemId);
+                                setState(() {
+                                  quantity++;
+                                });
+                              },
+                              child: Container(
+                                width: 5 * SizeConfig.widthMultiplier,
+                                child: Text('+',style:TextStyle(
+                                    fontSize: 18.0,
+                                    color:Color(0xFFFB9524)
+                                ),),
+                              ),
+                            ),
                           ],
                         ),
-                      ),//Naming and pricing
+                      ),
                     ],
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 10.0),
-                            height:10 * SizeConfig.widthMultiplier,
-                            width:21 * SizeConfig.widthMultiplier,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFAE6CB),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                GestureDetector(
-                                  onTap: (){
-                                    decreaseQuantity(widget.cart.cartId, widget.cart.cartItemId);
-                                    setState(() {
-                                      print(quantity);
-                                      if(quantity>0){
-                                        quantity--;
-                                      }
-                                      quantity=1;
-                                    });
-                                  },
-                                  child: Container(
-                                    width: 5 * SizeConfig.widthMultiplier,
-                                    child: Text('-',style:TextStyle(
-                                        fontSize: 23.0,
-                                        color:Color(0xFFFB9524)
-                                    ),),
-                                  ),
-                                ),
-                                widget.cart !=null ? Text(quantity.toString(),
-                                  style: kRobotoTextStyle.copyWith(
-                                      fontSize: 2 * SizeConfig.textMultiplier,
-                                      color: Colors.black
-                                  ),
-                                ) : Text(quantity.toString(),
-                                  style: kRobotoTextStyle.copyWith(
-                                      fontSize: 2 * SizeConfig.textMultiplier,
-                                      color: Colors.black
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    print(quantity);
-                                    increaseQuantity(widget.cart.cartId, widget.cart.cartItemId);
-                                    setState(() {
-                                      quantity++;
-                                    });
-                                  },
-                                  child: Container(
-                                    width: 5 * SizeConfig.widthMultiplier,
-                                    child: Text('+',style:TextStyle(
-                                        fontSize: 18.0,
-                                        color:Color(0xFFFB9524)
-                                    ),),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: (){
+                        deleteCartItem(widget.cart.cartId, widget.cart.cartItemId);
+                        },
+                      child: Icon(Icons.close,
+                        color: Colors.red,
+                        size: 19,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GestureDetector(
-                          onTap: (){
-                            deleteCartItem(widget.cart.cartId, widget.cart.cartItemId);
-                            },
-                          child: Icon(Icons.close,
-                            color: Colors.red,
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   )
                 ],
               ),

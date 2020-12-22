@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/resources/services/HttpCommon.dart';
 import 'package:food_delivery/resources/services/UserService.dart';
+import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
@@ -17,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
 
   final storage = new FlutterSecureStorage();
 
@@ -73,41 +75,56 @@ class _LoginScreenState extends State<LoginScreen> {
                           radius: 50.0,
                           backgroundImage: AssetImage("assets/images/avatar.png"),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextField(
-                              onChanged: (value) => {
-                                userName = value
-                              },
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Username",
-                                  hintText: "Username"
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) => {
+                                  userName = value.trim()
+                                },
+                                decoration: kInputFieldDecoration.copyWith(
+                                    labelText: "Username",
+                                    hintText: "Username"
+                                ),
                               ),
-                            ),
-                            TextField(
-                              onChanged: (value) => {
-                                password = value
-                              },
-                              obscureText: true,
-                              decoration: kInputFieldDecoration.copyWith(
-                                  labelText: "Password",
-                                  hintText: "Password"
+                              TextFormField(
+                                validator: (value) {
+                                  if (value.isEmpty) {
+                                    return 'Please enter some text';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (value) => {
+                                  password = value.trim()
+                                },
+                                obscureText: true,
+                                decoration: kInputFieldDecoration.copyWith(
+                                    labelText: "Password",
+                                    hintText: "Password"
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 10.0,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text("Forgot Password?",
-                                  style: kRoundedTextStyle.copyWith(
-                                      fontSize: 2.4 * SizeConfig.textMultiplier,
-                                      color: Color(0xFF69c730)
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
+                              SizedBox(height: 10.0,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text("Forgot Password?",
+                                    style: kRoundedTextStyle.copyWith(
+                                        fontSize: 2.4 * SizeConfig.textMultiplier,
+                                        color: Color(0xFF69c730)
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 7.5 * SizeConfig.heightMultiplier,),
                         FlatButton(
@@ -122,22 +139,24 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           onPressed: () async {
-                            Map parsedData;
-                            var map = new Map();
-                            map['username'] = userName;
-                            map['password'] = password;
-                            await loginUser(map).then(
-                                    (dynamic res) => {
-                                      if(res.statusCode == 400){
-                                        // final storage = new FlutterSecureStorage();
-                                      }else if(res.statusCode == 200) {
-                                        parsedData = json.decode(res.body),
-                                        print(parsedData['jwtToken']),
-                                        storage.write(key: 'token', value: parsedData['jwtToken']),
-                                        httpClient.addHeader('Authorization', parsedData['jwtToken']),
-                                        Navigator.pushNamed(context, MainScreen.id)
-                                      }
-                            }).catchError((err) => print(err));
+                            if(_formKey.currentState.validate()){
+                              Map parsedData;
+                              var map = new Map();
+                              map['username'] = userName;
+                              map['password'] = password;
+                              await loginUser(map).then(
+                                      (dynamic res) => {
+                                    if(res.statusCode == 400){
+                                      // final storage = new FlutterSecureStorage();
+                                    }else if(res.statusCode == 200) {
+                                      parsedData = json.decode(res.body),
+                                      print(parsedData['jwtToken']),
+                                      storage.write(key: 'token', value: parsedData['jwtToken']),
+                                      httpClient.addHeader('Authorization', parsedData['jwtToken']),
+                                      Navigator.pushNamed(context, MainScreen.id)
+                                    }
+                                  }).catchError((err) => print(err));
+                            }
                           },
                         ),
                         SizedBox(height: 7 * SizeConfig.heightMultiplier),

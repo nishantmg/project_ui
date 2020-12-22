@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/models/user.dart';
 import 'package:food_delivery/resources/services/UserService.dart';
 import 'package:food_delivery/ui/pages/change_password_screen.dart';
 import 'package:food_delivery/ui/pages/edit_profile_screen.dart';
@@ -23,25 +24,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String mobile;
   String role;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    Map responseObj;
-    loadUserInfo().then(
-        (res) => {
-          responseObj = json.decode(res.body),
-          id = responseObj['id'],
-          firstName = responseObj['firstName'],
-          lastName = responseObj['lastName'],
-          userName = responseObj['userName'],
-          email = responseObj['email'],
-          mobile = responseObj['mobile'],
-          role = responseObj['role'],
-          print(responseObj)
-        }
-    ).catchError((error) => print(error));
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Map responseObj;
+  //   loadUserInfo().then(
+  //       (res) => {
+  //         responseObj = json.decode(res.body),
+  //         id = responseObj['id'],
+  //         firstName = responseObj['firstName'],
+  //         lastName = responseObj['lastName'],
+  //         userName = responseObj['userName'],
+  //         email = responseObj['email'],
+  //         mobile = responseObj['mobile'],
+  //         role = responseObj['role'],
+  //         print(responseObj)
+  //       }
+  //   ).catchError((error) => print(error));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +62,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           backgroundImage: AssetImage('assets/images/avatar.png'),
                         ),
                         SizedBox(height: 2 * SizeConfig.heightMultiplier,),
-                        Text(
-                          "$firstName $lastName",
-                          style: kRoundedTextStyle.copyWith(
-                              color: Colors.black,
-                              fontSize: 5 * SizeConfig.textMultiplier
-                          ),
+                        FutureBuilder(
+                            builder: (context,snapshot){
+                              User user= snapshot.data;
+                              return Text(
+                                '${user.firstName} ${user.lastName}',
+                                style: kRoundedTextStyle.copyWith(
+                                    color: Colors.black,
+                                    fontSize: 5 * SizeConfig.textMultiplier
+                                ),
+                              );
+                            },
+                          future: loadUserInfo(),
                         ),
                       ],
                     ),

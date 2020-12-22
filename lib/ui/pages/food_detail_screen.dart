@@ -214,7 +214,14 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           child: Column(
                             children: [
+                              widget.product.product.description != null ?
                               Text(widget.product.product.description,
+                                style: kOpenSansTextStyle.copyWith(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 2.2 * SizeConfig.textMultiplier
+                                ),
+                              ):
+                              Text("No Description",
                                 style: kOpenSansTextStyle.copyWith(
                                     fontWeight: FontWeight.normal,
                                     fontSize: 2.2 * SizeConfig.textMultiplier

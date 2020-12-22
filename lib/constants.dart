@@ -35,8 +35,6 @@ const kRoundedTextStyle = TextStyle(
 );
 
 const kInputFieldDecoration = InputDecoration(
-    labelText: "First Name",
-    hintText: "First name",
     labelStyle: TextStyle(
       color: Color(0xFF69c730),
     ),

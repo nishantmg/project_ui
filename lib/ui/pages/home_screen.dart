@@ -51,24 +51,31 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 25 * SizeConfig.heightMultiplier,
                     child: FutureBuilder(
                       builder: (context, snapshot) {
+                        print('product state');
                         print(snapshot.connectionState);
-                        if (snapshot.connectionState !=
-                            ConnectionState.done &&
+                        print(snapshot.hasData);
+                        print('product ko data${snapshot.data}');
+                        if ((snapshot.connectionState != ConnectionState.done) &&
                             snapshot.hasData == false) {
                           return Center(
                             child: CircularProgressIndicator(
                               backgroundColor: Colors.green,
                             ),
                           );
+                        }else if((snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false)){
+                          return Center(
+                            child: Text("No product loaded"),
+                          );
                         }
                         return ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 2,
+                            itemCount: snapshot.data.length,
                             itemBuilder: (context, index) {
                               print('product is loading');
                               RestaurantMenuProduct restaurantProduct = snapshot.data[index];
                               return GestureDetector(
                                 onTap: (){
+                                  print('Yei ho product $restaurantProduct');
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) => FoodDetailScreen(
                                           product: restaurantProduct
@@ -121,20 +128,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 190,
                       child: FutureBuilder(
                         builder: (context, snapshot) {
-                          if (snapshot.connectionState !=
-                              ConnectionState.done &&
+                          if ((snapshot.connectionState != ConnectionState.done) &&
                               snapshot.hasData == false) {
                             return Center(
                               child: CircularProgressIndicator(
                                 backgroundColor: Colors.green,
                               ),
                             );
+                          }else if(snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false){
+                            return Center(
+                              child: Text("No restaurant loaded"),
+                            );
                           }
                           return ListView.builder(
                             itemCount: snapshot.data.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
-                              print('Restaurant is loading');
                               Restaurant restaurant = snapshot.data[index];
                               return GestureDetector(
                                 onTap: (){
