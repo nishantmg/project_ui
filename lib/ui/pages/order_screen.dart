@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/cartItem.dart';
 import 'package:food_delivery/resources/services/CartService.dart';
-import 'package:food_delivery/resources/services/LocationService.dart';
 import 'package:food_delivery/resources/services/OrderService.dart';
 import 'package:food_delivery/ui/pages/map_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 import 'package:food_delivery/ui/widgets/notification.util.dart';
-import 'package:food_delivery/ui/widgets/order_item.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geocoding/geocoding.dart';
 
 class OrderScreen extends StatefulWidget {
   static String id = 'order_screen';

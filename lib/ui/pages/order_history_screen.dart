@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/models/order.dart';
 import 'package:food_delivery/resources/services/OrderService.dart';
-import 'package:food_delivery/ui/widgets/order.dart';
+import 'package:food_delivery/ui/widgets/order_item_card.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   static String id = 'order_history_screen';
@@ -24,7 +25,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       backgroundColor: Colors.green,
                     ),
                   );
-                }else if(snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false){
+                }else if((snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false)||(snapshot.data=="[]")){
+                  print('data chaiyo kta ${snapshot.data}');
                   return Center(
                     child: Text("Order history is empty"),
                   );
@@ -33,13 +35,13 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                   children: [
                     Expanded(
                       child: ListView.builder(
-                        itemCount: 2,
+                        itemCount: snapshot.data.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
-                          print(snapshot.data);
+                          // print(snapshot.data);
                           print('Order history is loading');
-                          // Order order = snapshot.data.order;
-                          return Order();
+                          Order order = snapshot.data[index];
+                          return OrderItemCard();
                         },
                       ),
                     ),

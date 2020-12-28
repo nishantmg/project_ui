@@ -5,17 +5,15 @@ import 'package:food_delivery/resources/environment.dart';
 import 'package:food_delivery/resources/services/CartService.dart';
 import 'SizeConfig.dart';
 
-class OrderItem extends StatefulWidget {
-
+class CartItemCard extends StatefulWidget {
   final CartItem cart;
 
-  const OrderItem({this.cart});
-
+  const CartItemCard({this.cart});
   @override
-  _OrderItemState createState() => _OrderItemState();
+  _CartItemCardState createState() => _CartItemCardState();
 }
 
-class _OrderItemState extends State<OrderItem> {
+class _CartItemCardState extends State<CartItemCard> {
   int quantity;
 
   @override
@@ -140,7 +138,7 @@ class _OrderItemState extends State<OrderItem> {
                     child: GestureDetector(
                       onTap: (){
                         deleteCartItem(widget.cart.cartId, widget.cart.cartItemId);
-                        },
+                      },
                       child: Icon(Icons.close,
                         color: Colors.red,
                         size: 19,
@@ -173,3 +171,4 @@ class _OrderItemState extends State<OrderItem> {
     );
   }
 }
+

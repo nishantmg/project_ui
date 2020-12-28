@@ -12,12 +12,14 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
     productName: json['productName'] as String,
     productImage: json['productImage'] as String,
     description: json['description'] as String,
-    restaurantMenuProduct: json['restaurantMenuProduct'] == null
-        ? null
-        : RestaurantMenuProduct.fromJson(
-            json['restaurantMenuProduct'] as Map<String, dynamic>),
+    restaurantMenuProduct: (json['restaurantMenuProduct'] as List)
+        ?.map((e) => e == null
+            ? null
+            : RestaurantMenuProduct.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
     createdAt: json['createdAt'] as String,
     updatedAt: json['updatedAt'] as String,
+    deletedAt: json['deletedAt'] as String,
   );
 }
 
@@ -26,7 +28,9 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'productName': instance.productName,
       'productImage': instance.productImage,
       'description': instance.description,
-      'restaurantMenuProduct': instance.restaurantMenuProduct?.toJson(),
+      'restaurantMenuProduct':
+          instance.restaurantMenuProduct?.map((e) => e?.toJson())?.toList(),
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'deletedAt': instance.deletedAt,
     };

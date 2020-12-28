@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/models/product.dart';
+import 'package:food_delivery/models/restaurantMenu.dart';
+import 'package:food_delivery/resources/services/CartService.dart';
+import 'package:food_delivery/resources/services/RestaurantMenuProductService.dart';
+import 'package:food_delivery/ui/pages/food_list_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 
@@ -8,8 +13,9 @@ class RestaurantDetailScreen extends StatefulWidget {
   static String id = "restaurant_detail_screen";
   final NetworkImage restaurantImage;
   final String restaurantName;
+  final int restaurantId;
 
-  const RestaurantDetailScreen({@required this.restaurantImage,@required this.restaurantName});
+  const RestaurantDetailScreen({@required this.restaurantImage,@required this.restaurantName,this.restaurantId});
 
   @override
   _RestaurantDetailScreenState createState() => _RestaurantDetailScreenState();
@@ -77,55 +83,50 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                 ),
               ],
             ),
-            Expanded(
-              child: Container(
-                child: CustomScrollView(
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25),
-                            child: Column(
-                              children: [
-                                Text(widget.restaurantName,
-                                style: kRoundedTextStyle.copyWith(
-                                  color: Colors.green
-                                ),
-                                )
-                              ],
-                            ),
-                          ),
-                          ListTile(
-                            leading: FlutterLogo(),
-                            title: Text('Birthday Cakes'),
-                            trailing: Icon(Icons.arrow_right),
-                          ),
-                          ListTile(
-                            leading: FlutterLogo(),
-                            title: Text('Birthday Cakes'),
-                            trailing: Icon(Icons.more_vert),
-                          ),
-                          ListTile(
-                            leading: FlutterLogo(),
-                            title: Text('Birthday Cakes'),
-                            trailing: Icon(Icons.more_vert),
-                          ),
-                          ListTile(
-                            leading: FlutterLogo(),
-                            title: Text('Birthday Cakes'),
-                            trailing: Icon(Icons.more_vert),
-                          ),
-                          ListTile(
-                            leading: FlutterLogo(),
-                            title: Text('Birthday Cakes'),
-                            trailing: Icon(Icons.more_vert),
-                          ),
-                        ]
-                      ),
-                    )
-                  ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 25),
+              child: Text(widget.restaurantName,
+                style: kRoundedTextStyle.copyWith(
+                    color: Colors.green
                 ),
+              ),
+            ),
+            Container(
+              height: 57*SizeConfig.heightMultiplier,
+              child: FutureBuilder(
+                builder: (context, snapshot) {
+                  if ((snapshot.connectionState != ConnectionState.done) &&
+                      snapshot.hasData == false) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                  }else if(snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false){
+                    return Center(
+                      child: Text("No Menus Added"),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data.length,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (context, index) {
+                      RestaurantMenu menu = snapshot.data[index];
+                      return GestureDetector(
+                        onTap: () async{
+                          Navigator.push(context, MaterialPageRoute(
+                              builder:(context) => FoodListScreen(restaurantId: widget.restaurantId,menu: menu,))
+                          );
+                        },
+                        child: ListTile(
+                          title: Text(menu.name),
+                          trailing: Icon(Icons.arrow_right),
+                        ),
+                      );
+                    },
+                  ) ;
+                },
+                future: getRestaurantMenus(widget.restaurantId),
               ),
             )
           ],

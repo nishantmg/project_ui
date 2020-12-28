@@ -8,30 +8,36 @@ part of 'orderItem.dart';
 
 OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
   return OrderItem(
-    orderId: json['orderId'] as int,
+    orderItemId: json['orderItemId'] as int,
     orderNo: json['orderNo'] as String,
-    date: json['date'] as String,
+    orderId: json['orderId'] as int,
+    productId: json['productId'] as int,
     totalAmount: json['totalAmount'] as String,
-    discount: json['discount'] as String,
-    cartId: json['cartId'] as int,
+    cartItemId: json['cartItemId'] as int,
     userId: json['userId'] as int,
-    orderStatus: json['orderStatus'] as String,
-    createdAt: json['createdAt'] as String,
-    updatedAt: json['updatedAt'] as String,
-    deletedAt: json['deletedAt'] as String,
+    quantity: json['quantity'] as int,
+    product: json['product'] == null
+        ? null
+        : Product.fromJson(json['product'] as Map<String, dynamic>),
+    cartItem: json['cartItem'] == null
+        ? null
+        : CartItem.fromJson(json['cartItem'] as Map<String, dynamic>),
+    user: json['user'] == null
+        ? null
+        : User.fromJson(json['user'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$OrderItemToJson(OrderItem instance) => <String, dynamic>{
-      'orderId': instance.orderId,
+      'orderItemId': instance.orderItemId,
       'orderNo': instance.orderNo,
-      'date': instance.date,
+      'orderId': instance.orderId,
+      'productId': instance.productId,
       'totalAmount': instance.totalAmount,
-      'discount': instance.discount,
-      'cartId': instance.cartId,
+      'cartItemId': instance.cartItemId,
       'userId': instance.userId,
-      'orderStatus': instance.orderStatus,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
-      'deletedAt': instance.deletedAt,
+      'quantity': instance.quantity,
+      'product': instance.product?.toJson(),
+      'cartItem': instance.cartItem?.toJson(),
+      'user': instance.user?.toJson(),
     };

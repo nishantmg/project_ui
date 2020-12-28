@@ -51,10 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 25 * SizeConfig.heightMultiplier,
                     child: FutureBuilder(
                       builder: (context, snapshot) {
-                        print('product state');
-                        print(snapshot.connectionState);
-                        print(snapshot.hasData);
-                        print('product ko data${snapshot.data}');
+                        //print('product ko data${snapshot.data}');
                         if ((snapshot.connectionState != ConnectionState.done) &&
                             snapshot.hasData == false) {
                           return Center(
@@ -75,7 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               RestaurantMenuProduct restaurantProduct = snapshot.data[index];
                               return GestureDetector(
                                 onTap: (){
-                                  print('Yei ho product $restaurantProduct');
                                   Navigator.push(context, MaterialPageRoute(
                                       builder: (context) => FoodDetailScreen(
                                           product: restaurantProduct
@@ -147,10 +143,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               Restaurant restaurant = snapshot.data[index];
                               return GestureDetector(
                                 onTap: (){
+                                  int restaurantId = restaurant.restaurantId;
                                   String restaurantName = restaurant.restaurantName;
                                   NetworkImage restaurantImage = NetworkImage('$imageUrl/${restaurant.image}');
                                   Navigator.push(context, MaterialPageRoute(
-                                      builder:(context) => RestaurantDetailScreen(restaurantName: restaurantName, restaurantImage: restaurantImage))
+                                      builder:(context) => RestaurantDetailScreen(restaurantName: restaurantName, restaurantImage: restaurantImage,restaurantId: restaurantId,))
                                   );
                                 },
                                 child: RestaurantCard(

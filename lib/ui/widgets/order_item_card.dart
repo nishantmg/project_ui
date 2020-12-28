@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
-class Order extends StatelessWidget {
-  const Order({
-    Key key,
-  }) : super(key: key);
-
+class OrderItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -64,3 +60,5 @@ class Order extends StatelessWidget {
     );
   }
 }
+
+

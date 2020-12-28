@@ -1,33 +1,38 @@
+import 'package:food_delivery/models/cartItem.dart';
+import 'package:food_delivery/models/product.dart';
+import 'package:food_delivery/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'orderItem.g.dart';
 
 
 @JsonSerializable(explicitToJson: true)
 class OrderItem{
-  final int orderId;
+  final int orderItemId;
   final String orderNo;
-  final String date;
+  final int orderId;
+  final int productId;
   final String totalAmount;
-  final String discount;
-  final int cartId;
+  final int cartItemId;
   final int userId;
-  final String orderStatus;
-  final String createdAt;
-  final String updatedAt;
-  final String deletedAt;
+  final int quantity;
+  final Product product;
+  final CartItem cartItem;
+  final User user;
 
   OrderItem(
-      {this.orderId,
+      {this.orderItemId,
       this.orderNo,
-      this.date,
+      this.orderId,
+      this.productId,
       this.totalAmount,
-      this.discount,
-      this.cartId,
+      this.cartItemId,
       this.userId,
-      this.orderStatus,
-      this.createdAt,
-      this.updatedAt,
-      this.deletedAt});
+      this.quantity,
+      this.product,
+      this.cartItem,
+      this.user});
+
+
 
   factory OrderItem.fromJson(Map<String,dynamic> json) => _$OrderItemFromJson(json);
   Map<String,dynamic> toJson() => _$OrderItemToJson(this);

@@ -6,7 +6,7 @@ import 'package:food_delivery/models/cartItem.dart';
 import 'package:food_delivery/resources/services/CartService.dart';
 import 'package:food_delivery/ui/pages/order_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
-import 'package:food_delivery/ui/widgets/order_item.dart';
+import 'package:food_delivery/ui/widgets/cart_item_card.dart';
 
 class CartScreen extends StatefulWidget {
   static String id = 'cart_screen';
@@ -57,7 +57,7 @@ class _CartScreenState extends State<CartScreen> {
                                       cart.cartId, cart.cartItemId);
                                 });
                               },
-                              child: OrderItem(
+                              child: CartItemCard(
                                 cart: cart,
                               ));
                         },

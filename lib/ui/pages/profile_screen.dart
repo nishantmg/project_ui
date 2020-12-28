@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/user.dart';
@@ -64,6 +62,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(height: 2 * SizeConfig.heightMultiplier,),
                         FutureBuilder(
                             builder: (context,snapshot){
+                              if ((snapshot.connectionState != ConnectionState.done) &&
+                                  snapshot.hasData == false) {
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                              }else if((snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false)){
+                                return Center(
+                                  child: Text("No user info loaded"),
+                                );
+                              }
                               User user= snapshot.data;
                               return Text(
                                 '${user.firstName} ${user.lastName}',

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:food_delivery/models/restaurant.dart';
 import 'package:food_delivery/resources/environment.dart';
@@ -17,7 +18,8 @@ Future<List<Restaurant>>getRestaurants() async{
 
  List<Restaurant> parseRestaurants(String responseBody){
   // final parsed = Map<String,dynamic>.from(jsonDecode(responseBody));
+  //  print(jsonDecode(responseBody).runtimeType);
   final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
-  print("Restaurant List  $parsed");
+  // print("Restaurant List  ${parsed}");
   return  parsed.map<Restaurant>((json) => Restaurant.fromJson(json)).toList();
 }

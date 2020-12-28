@@ -1,3 +1,6 @@
+import 'package:food_delivery/models/cart.dart';
+import 'package:food_delivery/models/orderItem.dart';
+import 'package:food_delivery/models/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'order.g.dart';
 
@@ -15,6 +18,9 @@ class Order{
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
+  final Cart cart;
+  final User user;
+  final List<OrderItem> orderItem;
 
   Order(
       {this.orderId,
@@ -27,9 +33,10 @@ class Order{
       this.orderStatus,
       this.createdAt,
       this.updatedAt,
-      this.deletedAt});
-
-
+      this.deletedAt,
+      this.cart,
+      this.user,
+      this.orderItem});
 
   factory Order.fromJson(Map<String,dynamic> json) => _$OrderFromJson(json);
   Map<String,dynamic> toJson() => _$OrderToJson(this);
