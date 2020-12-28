@@ -48,6 +48,7 @@ class _CartScreenState extends State<CartScreen> {
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
                           print('Cart is loading');
+                          print(snapshot.data);
                           CartItem cart = snapshot.data.cartItems[index];
                           return Dismissible(
                               key: Key(index.toString()),

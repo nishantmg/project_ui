@@ -8,12 +8,12 @@ class Product{
   final String productName;
   final String productImage;
   final String description;
-  final List<RestaurantMenuProduct> restaurantMenuProduct;
+  final List<RestaurantMenuProduct> restaurantMenuProducts;
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
 
-  Product({this.productId, this.productName, this.productImage, this.description, this.restaurantMenuProduct, this.createdAt, this.updatedAt, this.deletedAt});
+  Product({this.productId, this.productName, this.productImage, this.description, this.restaurantMenuProducts, this.createdAt, this.updatedAt, this.deletedAt});
 
 
   factory Product.fromJson(Map<String,dynamic> json) => _$ProductFromJson(json);

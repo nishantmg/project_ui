@@ -16,21 +16,22 @@ postOrder(cartId,address) async{
      throw Exception("Error occured adding order");
    }
 }
-getOrder()async{
+Future<List<Order>>getOrder()async{
   String url ='$baseurl/orders/current';
   Response response = await httpClient.get(url);
   if(response.statusCode == 200){
-    Order order = parseOrder(response.body);
-    print (order);
+    return parseOrder(response.body);
   }else{
     throw Exception ('Error on getting current order');
   }
 }
 
-Order parseOrder(String responseBody){
+List<Order> parseOrder(String responseBody){
   // final parsed = Map<String,dynamic>.from(jsonDecode(responseBody));
-  print(responseBody);
-  final parsed = json.decode(responseBody).cast<String,dynamic>();
-  print('parse vayo $parsed');
-  return Order.fromJson(parsed);
+  // print("Response Body ${json.decode(responseBody)}");
+  final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
+  // print("Parsing list $parsed");
+  // print("Returning ${parsed.map<Order>((json) => Order.fromJson(json)).toList()}");
+  return parsed.map<Order>((json)=> Order.fromJson(json)).toList();
+
 }

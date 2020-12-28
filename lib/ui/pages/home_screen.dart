@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               print('product is loading');
                               RestaurantMenuProduct restaurantProduct = snapshot.data[index];
+                              print(restaurantProduct);
                               return GestureDetector(
                                 onTap: (){
                                   Navigator.push(context, MaterialPageRoute(

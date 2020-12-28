@@ -12,7 +12,7 @@ OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
     orderNo: json['orderNo'] as String,
     orderId: json['orderId'] as int,
     productId: json['productId'] as int,
-    totalAmount: json['totalAmount'] as String,
+    totalAmount: json['totalAmount'],
     cartItemId: json['cartItemId'] as int,
     userId: json['userId'] as int,
     quantity: json['quantity'] as int,

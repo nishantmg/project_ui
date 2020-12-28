@@ -10,17 +10,17 @@ class Order{
   final int orderId;
   final String orderNo;
   final String date;
-  final String totalAmount;
-  final String discount;
+  final dynamic totalAmount;
+  final dynamic discount;
   final int cartId;
   final int userId;
   final String orderStatus;
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
+  final List<OrderItem> orderItems;
   final Cart cart;
   final User user;
-  final List<OrderItem> orderItem;
 
   Order(
       {this.orderId,
@@ -36,7 +36,7 @@ class Order{
       this.deletedAt,
       this.cart,
       this.user,
-      this.orderItem});
+      this.orderItems});
 
   factory Order.fromJson(Map<String,dynamic> json) => _$OrderFromJson(json);
   Map<String,dynamic> toJson() => _$OrderToJson(this);

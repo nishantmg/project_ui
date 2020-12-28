@@ -11,7 +11,7 @@ class OrderItem{
   final String orderNo;
   final int orderId;
   final int productId;
-  final String totalAmount;
+  final dynamic totalAmount;
   final int cartItemId;
   final int userId;
   final int quantity;

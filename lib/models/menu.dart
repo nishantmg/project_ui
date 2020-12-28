@@ -9,7 +9,7 @@ class Menu {
   final String createdAt;
   final String updatedAt;
   final String deletedAt;
-  final RestaurantMenuProduct restaurantMenuProduct;
+  final List<RestaurantMenuProduct> restaurantMenuProduct;
 
   Menu({this.menuId, this.menuName, this.createdAt, this.updatedAt, this.deletedAt, this.restaurantMenuProduct});
 

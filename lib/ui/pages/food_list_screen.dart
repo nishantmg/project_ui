@@ -70,6 +70,7 @@ class _FoodListScreenState extends State<FoodListScreen> {
               height: 57*SizeConfig.heightMultiplier,
               child: FutureBuilder(
                 builder: (context, snapshot) {
+                  print('data xaina${snapshot.data}');
                   if ((snapshot.connectionState != ConnectionState.done) &&
                       snapshot.hasData == false) {
                     return Center(
@@ -86,6 +87,7 @@ class _FoodListScreenState extends State<FoodListScreen> {
                     itemCount: snapshot.data.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
+                      print(snapshot.data);
                       RestaurantMenuProduct product = snapshot.data[index];
                       return GestureDetector(
                         onTap: () async{

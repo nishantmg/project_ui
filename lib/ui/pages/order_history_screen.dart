@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/models/order.dart';
+import 'package:food_delivery/models/orderItem.dart';
 import 'package:food_delivery/resources/services/OrderService.dart';
 import 'package:food_delivery/ui/widgets/order_item_card.dart';
 
@@ -25,7 +26,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       backgroundColor: Colors.green,
                     ),
                   );
-                }else if((snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false)||(snapshot.data=="[]")){
+                }else if(snapshot.connectionState != ConnectionState.waiting && snapshot.hasData ==false){
                   print('data chaiyo kta ${snapshot.data}');
                   return Center(
                     child: Text("Order history is empty"),
@@ -35,13 +36,14 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                   children: [
                     Expanded(
                       child: ListView.builder(
-                        itemCount: snapshot.data.length,
+                        itemCount: snapshot.data[0].orderItems.length,
                         scrollDirection: Axis.vertical,
                         itemBuilder: (context, index) {
-                          // print(snapshot.data);
                           print('Order history is loading');
-                          Order order = snapshot.data[index];
-                          return OrderItemCard();
+                          print(snapshot.data[0].orderStatus);
+                          String orderStatus = snapshot.data[0].orderStatus;
+                          OrderItem orderItem = snapshot.data[0].orderItems[index];
+                          return OrderItemCard(orderItem: orderItem,orderStatus: orderStatus,);
                         },
                       ),
                     ),

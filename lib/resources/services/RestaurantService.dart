@@ -20,6 +20,5 @@ Future<List<Restaurant>>getRestaurants() async{
   // final parsed = Map<String,dynamic>.from(jsonDecode(responseBody));
   //  print(jsonDecode(responseBody).runtimeType);
   final parsed = json.decode(responseBody).cast<Map<String,dynamic>>();
-  // print("Restaurant List  ${parsed}");
   return  parsed.map<Restaurant>((json) => Restaurant.fromJson(json)).toList();
 }

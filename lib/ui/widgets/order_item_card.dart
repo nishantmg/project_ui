@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
+import 'package:food_delivery/models/orderItem.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
 class OrderItemCard extends StatelessWidget {
+
+  final OrderItem orderItem;
+  final String orderStatus;
+
+  const OrderItemCard({Key key, this.orderItem,this.orderStatus}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,7 +39,7 @@ class OrderItemCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top:12.0,left:8.0,bottom: 5.0),
-                      child: Text("hello",
+                      child: Text(orderItem.product.productName,
                         overflow: TextOverflow.visible,
                         style: kRobotoTextStyle.copyWith(
                             fontSize: 2 * SizeConfig.textMultiplier,
@@ -42,7 +49,7 @@ class OrderItemCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left:8,top:8.0,bottom:10),
-                      child:Text("Rs.aayena",
+                      child:Text("Status:$orderStatus",
                         style: kRobotoTextStyle.copyWith(
                             fontSize: 2 * SizeConfig.textMultiplier,
                             color: Colors.black,

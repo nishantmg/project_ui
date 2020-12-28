@@ -111,6 +111,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
                     itemCount: snapshot.data.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, index) {
+                      print(snapshot.data);
                       RestaurantMenu menu = snapshot.data[index];
                       return GestureDetector(
                         onTap: () async{
