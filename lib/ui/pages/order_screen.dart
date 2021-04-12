@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/models/cartItem.dart';
 import 'package:food_delivery/resources/services/CartService.dart';
 import 'package:food_delivery/resources/services/OrderService.dart';
 import 'package:food_delivery/ui/pages/map_screen.dart';
+import 'package:food_delivery/ui/pages/order_history_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 import 'package:food_delivery/ui/widgets/notification.util.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+
 
 class OrderScreen extends StatefulWidget {
   static String id = 'order_screen';
@@ -69,6 +72,17 @@ class _OrderScreenState extends State<OrderScreen> {
                         ),
                       );
                     }
+                    List products =[];
+                    for(int i = 0 ; i < (snapshot.data.cartItems.length);i++){
+                      var product = new Map<String,dynamic>();
+                      product['productName'] = snapshot.data.cartItems[i].product.productName;
+                      product['Quantity'] = snapshot.data.cartItems[i].quantity;
+                      print(snapshot.data.cartItems[i].product.productName);
+                      products.add(product);
+                    }
+                    print(products);
+                    // print(snapshot.data.cartItems.length);
+                    // print(snapshot.data.cartItems[0].product.productName);
                     return Column(
                       children: [
                         ListTile(
@@ -166,8 +180,9 @@ class _OrderScreenState extends State<OrderScreen> {
                               ),
                             ),
                             onPressed: ()  {
-                              postOrder(snapshot.data.cartId, address);
+                              sendMail(products);
                               if(_formKey.currentState.validate()){
+                                postOrder(snapshot.data.cartId, address);
                                 _key.currentState.showSnackBar(
                                     MessageBox.showMessage("Order added")
                                 );
@@ -184,4 +199,38 @@ class _OrderScreenState extends State<OrderScreen> {
           ),
         ));
   }
+
 }
+sendMail(products) async {
+  print("11111111111111111111111111111111111");
+  String username = 'foodappspoon@gmail.com';
+  String password = 'spoon234';
+
+  final smtpServer = gmail(username, password);
+  // Use the SmtpServer class to configure an SMTP server:
+  // final smtpServer = SmtpServer('smtp.domain.com');
+  // See the named arguments of SmtpServer for further configuration
+  // options.
+
+  // Create our message.
+  final message = Message()
+    ..from = Address(username, 'Spoon')
+    ..recipients.add('tamu.sanju.9@gmail.com')
+  // ..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
+  // ..bccRecipients.add(Address('bccAddress@example.com'))
+    ..subject = 'Food Order ${DateTime.now()}'
+    ..text = '$products';
+    // ..html = "<h1>Test</h1>\n<p>Hey! Here's some HTML content</p>";
+
+  try {
+    final sendReport = await send(message, smtpServer);
+    print('Message sent: ' + sendReport.toString());
+  } on MailerException catch (e) {
+    print('Message not sent.');
+    for (var p in e.problems) {
+      print('Problem: ${p.code}: ${p.msg}');
+    }
+  }
+}
+
+

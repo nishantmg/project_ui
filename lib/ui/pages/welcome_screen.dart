@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
+import 'package:food_delivery/ui/pages/signup_checker.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
@@ -54,7 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, SignUpScreen.id);
+                    Navigator.pushNamed(context, SignUpChecker.id);
                   },
                 ),
                 SizedBox(

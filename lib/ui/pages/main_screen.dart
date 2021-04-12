@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/ui/pages/cart_screen.dart';
-import 'package:food_delivery/ui/pages/favorite_screen.dart';
 import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/order_history_screen.dart';
 import 'package:food_delivery/ui/pages/profile_screen.dart';
@@ -30,109 +29,134 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white.withOpacity(0.7),
         toolbarHeight: 45,
-        title: Text(
-          "Spoon",
-          style: kLogoTextStyle.copyWith(
-            fontSize: 5 * SizeConfig.textMultiplier,
-            color: Color(0xFF69c730),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 8),
+          child: Text(
+            "Spoon",
+            style: kLogoTextStyle.copyWith(
+              fontSize: 5 * SizeConfig.textMultiplier,
+              color: Color(0xFF69c730),
+            ),
           ),
         ),
-        leading: IconButton(
-          onPressed: () {
-            _scaffoldKey.currentState.openDrawer();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: Color(0xFF69c730),
-          ),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {
+        //     _scaffoldKey.currentState.openDrawer();
+        //   },
+        //   icon: Icon(
+        //     Icons.menu,
+        //     color: Color(0xFF69c730),
+        //   ),
+        // ),
       ),
-      drawer: Container(
-        width: 75 * SizeConfig.widthMultiplier,
-        child: Drawer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                  accountName: Text(
-                    "Spoon",
-                    style: kRoundedTextStyle.copyWith(
-                      color: Colors.green,
-                      fontSize: 2.7 * SizeConfig.textMultiplier,
-                    ),
-                  ),
-                  accountEmail: Text("Spoon@gmail.com",
-                    style: kOpenSansTextStyle.copyWith(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.green,
-                      fontSize: 2.3 * SizeConfig.textMultiplier
-                    ),
-                  ),
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/avatar.png"),
-                  ),
-                ),
-              ),
-              SizedBox(height:5 * SizeConfig.heightMultiplier,),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 18),
-              //   child: Column(
-              //     children: [
-              //       ListTile(
-              //           leading: Icon(
-              //             Icons.account_circle,
-              //             color: Colors.green,
-              //           ),
-              //           title: Text(
-              //             'Profile',
-              //             style: kOpenSansTextStyle.copyWith(
-              //               fontSize: 2.7 * SizeConfig.textMultiplier,
-              //               color: Colors.green,
-              //             ),
-              //           ),
-              //           onTap: () {}),
-              //       ListTile(
-              //         leading: Icon(
-              //           Icons.settings,
-              //           color: Colors.green,
-              //         ),
-              //         title: Text(
-              //           'Setting',
-              //           style: kOpenSansTextStyle.copyWith(
-              //             fontSize: 2.7 * SizeConfig.textMultiplier,
-              //             color: Colors.green,
-              //           ),
-              //         ),
-              //         onTap: () {},
-              //       ),
-              //       ListTile(
-              //         leading: Icon(
-              //           Icons.exit_to_app,
-              //           color: Colors.green,
-              //         ),
-              //         title: Text(
-              //           'Logout',
-              //           style: kOpenSansTextStyle.copyWith(
-              //             fontSize: 2.7 * SizeConfig.textMultiplier,
-              //             color: Colors.green,
-              //           ),
-              //         ),
-              //         onTap: () {},
-              //       )
-              //     ],
-              //   ),
-              // )
-            ],
-          ),
-        ),
-      ),
+      // drawer: Container(
+      //   width: 75 * SizeConfig.widthMultiplier,
+      //   child: Drawer(
+      //     child: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: <Widget>[
+      //         Padding(
+      //           padding: const EdgeInsets.all(12.0),
+      //           child: UserAccountsDrawerHeader(
+      //             decoration: BoxDecoration(
+      //               color: Colors.transparent,
+      //             ),
+      //             accountName: Text(
+      //               "Spoon",
+      //               style: kRoundedTextStyle.copyWith(
+      //                 color: Colors.green,
+      //                 fontSize: 2.7 * SizeConfig.textMultiplier,
+      //               ),
+      //             ),
+      //             accountEmail: Text("Spoon@gmail.com",
+      //               style: kOpenSansTextStyle.copyWith(
+      //                   fontWeight: FontWeight.normal,
+      //                   color: Colors.green,
+      //                 fontSize: 2.3 * SizeConfig.textMultiplier
+      //               ),
+      //             ),
+      //             currentAccountPicture: CircleAvatar(
+      //               backgroundImage: AssetImage("assets/images/avatar.png"),
+      //             ),
+      //           ),
+      //         ),
+      //         // SizedBox(height:5 * SizeConfig.heightMultiplier,),
+      //         Column(
+      //           children: [
+      //             ListTile(
+      //               leading: Icon(
+      //                 Icons.home,
+      //                 color: Colors.green,
+      //               ),
+      //               title: Text(
+      //                 'Home',
+      //                 style: kOpenSansTextStyle.copyWith(
+      //                   fontSize: 2.4 * SizeConfig.textMultiplier,
+      //                   color: Colors.green,
+      //                 ),
+      //               ),
+      //               onTap: () {
+      //                 Navigator.pushNamed(context, MainScreen.id);
+      //               },
+      //             ),
+      //             ListTile(
+      //               leading: Icon(
+      //                 Icons.history,
+      //                 color: Colors.green,
+      //               ),
+      //               title: Text(
+      //                 'Order Log',
+      //                 style: kOpenSansTextStyle.copyWith(
+      //                   fontSize: 2.4 * SizeConfig.textMultiplier,
+      //                   color: Colors.green,
+      //                 ),
+      //               ),
+      //               onTap: () {
+      //                 Navigator.pushNamed(context, OrderHistoryScreen.id);
+      //               },
+      //             ),
+      //             ListTile(
+      //               leading: Icon(
+      //                 Icons.shopping_cart,
+      //                 color: Colors.green,
+      //               ),
+      //               title: Text(
+      //                 'Cart',
+      //                 style: kOpenSansTextStyle.copyWith(
+      //                   fontSize: 2.4 * SizeConfig.textMultiplier,
+      //                   color: Colors.green,
+      //                 ),
+      //               ),
+      //               onTap: () {
+      //                 Navigator.pushNamed(context, CartScreen.id);
+      //               },
+      //             ),
+      //             ListTile(
+      //                 leading: Icon(
+      //                   Icons.account_circle,
+      //                   color: Colors.green,
+      //                 ),
+      //                 title: Text(
+      //                   'Profile',
+      //                   style: kOpenSansTextStyle.copyWith(
+      //                     fontSize: 2.4 * SizeConfig.textMultiplier,
+      //                     color: Colors.green,
+      //                   ),
+      //                 ),
+      //                 onTap: () {
+      //                   Navigator.pushNamed(context, ProfileScreen.id);
+      //                 }
+      //                 ),
+      //
+      //           ],
+      //         )
+      //       ],
+      //     ),
+      //   ),
+      // ),
       body: _pageOptions[_selectedIndex],
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: _selectedIndex,

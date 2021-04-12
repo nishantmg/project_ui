@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/models/product.dart';
 import 'package:food_delivery/models/restaurantMenu.dart';
-import 'package:food_delivery/resources/services/CartService.dart';
 import 'package:food_delivery/resources/services/RestaurantMenuProductService.dart';
 import 'package:food_delivery/ui/pages/food_list_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
@@ -15,7 +13,7 @@ class RestaurantDetailScreen extends StatefulWidget {
   final String restaurantName;
   final int restaurantId;
 
-  const RestaurantDetailScreen({@required this.restaurantImage,@required this.restaurantName,this.restaurantId});
+  const RestaurantDetailScreen({this.restaurantImage,this.restaurantName,this.restaurantId});
 
   @override
   _RestaurantDetailScreenState createState() => _RestaurantDetailScreenState();

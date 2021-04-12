@@ -1,14 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/resources/services/HttpCommon.dart';
 import 'package:food_delivery/resources/services/UserService.dart';
-import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
-import 'package:http/http.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -22,8 +19,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final storage = new FlutterSecureStorage();
 
+  bool processing;
   String userName;
   String password;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    processing = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: 7.5 * SizeConfig.heightMultiplier,),
                         FlatButton(
                           color: Color(0xFF69c730),
-                          child: Padding(
+                          child: processing ? CircularProgressIndicator():Padding(
                             padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 45.0),
                             child: Text(
                               "SIGN IN",
@@ -139,24 +144,34 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           onPressed: () async {
-                            if(_formKey.currentState.validate()){
-                              Map parsedData;
-                              var map = new Map();
-                              map['username'] = userName;
-                              map['password'] = password;
-                              await loginUser(map).then(
-                                      (dynamic res) => {
-                                    if(res.statusCode == 400){
-                                      // final storage = new FlutterSecureStorage();
-                                    }else if(res.statusCode == 200) {
-                                      parsedData = json.decode(res.body),
-                                      print(parsedData['jwtToken']),
-                                      storage.write(key: 'token', value: parsedData['jwtToken']),
-                                      httpClient.addHeader('Authorization', parsedData['jwtToken']),
-                                      Navigator.pushNamed(context, MainScreen.id)
-                                    }
-                                  }).catchError((err) => print(err));
+                            setState(() {
+                              processing=true;
+                            });
+                            try{
+                              if(_formKey.currentState.validate()){
+                                Map parsedData;
+                                var map = new Map();
+                                map['username'] = userName;
+                                map['password'] = password;
+                                await loginUser(map).then(
+                                        (dynamic res) => {
+                                      if(res.statusCode == 400){
+                                        // final storage = new FlutterSecureStorage();
+                                      }else if(res.statusCode == 200) {
+                                        parsedData = json.decode(res.body),
+                                        print(parsedData['jwtToken']),
+                                        storage.write(key: 'token', value: parsedData['jwtToken']),
+                                        httpClient.addHeader('Authorization', parsedData['jwtToken']),
+                                        Navigator.pushNamed(context, MainScreen.id)
+                                      }
+                                    }).catchError((err) => print(err));
+                              }
+                            }catch(e){
+                              print(e);
                             }
+                            setState(() {
+                              processing=false;
+                            });
                           },
                         ),
                         SizedBox(height: 7 * SizeConfig.heightMultiplier),

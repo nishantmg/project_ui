@@ -4,9 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:food_delivery/constants.dart';
 import 'package:food_delivery/models/cartItem.dart';
 import 'package:food_delivery/resources/services/CartService.dart';
+import 'package:food_delivery/ui/pages/email.dart';
 import 'package:food_delivery/ui/pages/order_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 import 'package:food_delivery/ui/widgets/cart_item_card.dart';
+
 
 class CartScreen extends StatefulWidget {
   static String id = 'cart_screen';
@@ -15,8 +17,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +80,8 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, OrderScreen.id);
+                          // Navigator.pushNamed(context, Email.id);
+
                         },
                       ),
                     ),
@@ -98,14 +100,6 @@ class _CartScreenState extends State<CartScreen> {
     return null;
   }
 
-  _proceed(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (sheetContext) =>
-          BottomSheet(
-            builder: (_) => OrderScreen(),
-            onClosing: () {},
-          ),
-    );
-  }
+
+
 }

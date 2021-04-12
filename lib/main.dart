@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/ui/pages/cart_screen.dart';
 import 'package:food_delivery/ui/pages/change_password_screen.dart';
+import 'package:food_delivery/ui/pages/email.dart';
+import 'package:food_delivery/ui/pages/employee_sign_up_screen.dart';
 import 'package:food_delivery/ui/pages/food_detail_screen.dart';
 import 'package:food_delivery/ui/pages/food_list_screen.dart';
 import 'package:food_delivery/ui/pages/home_screen.dart';
 import 'package:food_delivery/ui/pages/login_screen.dart';
 import 'package:food_delivery/ui/pages/main_screen.dart';
 import 'package:food_delivery/ui/pages/edit_profile_screen.dart';
+import 'package:food_delivery/ui/pages/merchant_signup_screen.dart';
 import 'package:food_delivery/ui/pages/order_history_screen.dart';
 import 'package:food_delivery/ui/pages/order_screen.dart';
 import 'package:food_delivery/ui/pages/restaurant_detail_screen.dart';
+import 'package:food_delivery/ui/pages/signup_checker.dart';
 import 'package:food_delivery/ui/pages/signup_screen.dart';
+import 'package:food_delivery/ui/pages/user_signup_screen.dart';
 import 'package:food_delivery/ui/pages/welcome_screen.dart';
 import 'package:food_delivery/ui/widgets/SizeConfig.dart';
 
@@ -37,6 +42,10 @@ class MyApp extends StatelessWidget {
               routes: {
                 HomeScreen.id:(context)=>HomeScreen(),
                 WelcomeScreen.id : (context)=> WelcomeScreen(),
+                SignUpChecker.id: (context) =>SignUpChecker(),
+                UserSignUpScreen.id:(context) => UserSignUpScreen(),
+                MerchantSignUpScreen.id:(context)=> MerchantSignUpScreen(),
+                EmployeeSignUpScreen.id:(context) => EmployeeSignUpScreen(),
                 SignUpScreen.id: (context)=> SignUpScreen(),
                 LoginScreen.id:(context)=> LoginScreen(),
                 MainScreen.id:(context)=>MainScreen(),

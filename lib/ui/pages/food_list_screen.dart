@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/constants.dart';
-import 'package:food_delivery/models/product.dart';
 import 'package:food_delivery/models/restaurantMenu.dart';
 import 'package:food_delivery/models/restaurantMenuProduct.dart';
 import 'package:food_delivery/resources/environment.dart';

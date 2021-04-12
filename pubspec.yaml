@@ -35,6 +35,11 @@ dependencies:
   geolocator: ^6.1.7
   google_maps_flutter: ^1.0.6
   geocoding: ^1.0.5
+  flutter_mailer: ^1.0.0
+  flutter_email_sender: 4.0.0
+  image_picker: 0.6.7
+  mailer: 3.3.0
+  intl: 0.16.1
 
 
 dev_dependencies:
